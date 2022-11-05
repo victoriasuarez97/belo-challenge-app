@@ -1,6 +1,6 @@
 import React, { FC } from "react"
 import { Text, View } from "react-native"
-import { useBalanceContext } from "../../context/BalanceContext"
+import { useBalanceContext } from "../../context"
 import { formatCurrency } from "../../utils"
 import { tw } from "../../utils/tailwind"
 import Button from "../Button"

@@ -1,18 +1,18 @@
-import { StatusBar } from "expo-status-bar";
 import React, { FC } from "react";
-import { SafeAreaView, ScrollView } from "react-native";
-import { Header, Market } from "../../components";
-import { tw } from "../../utils/tailwind";
+import { Container, Header, Market } from "../../components";
+import { VIEWS } from "../../constants/views";
+import { useViewsContext } from "../../context/Views";
 
 const Home: FC = () => {
+    const { view } = useViewsContext()
+
     return (
-        <SafeAreaView style={tw`bg-black`}>
-            <StatusBar backgroundColor="white"/>
-            <ScrollView>
-                <Header />  
-                <Market />
-            </ScrollView>
-        </SafeAreaView>
+        view === VIEWS.HOME
+            ? (<Container>
+                    <Header />  
+                    <Market />
+                </Container>)
+            : (<></>)
     )
 }
 

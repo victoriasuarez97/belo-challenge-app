@@ -1,4 +1,6 @@
-export type Coins = 'bitcoin' | 'ethereum' | 'dai' | 'tether'
+import { COINS } from "../constants/coins"
+
+export type Coins = typeof COINS[keyof typeof COINS]
 
 export type Currencies = 'ARS' | 'USD'
 

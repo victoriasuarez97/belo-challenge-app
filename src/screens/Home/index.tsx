@@ -1,14 +1,17 @@
 import { StatusBar } from "expo-status-bar";
 import React, { FC } from "react";
-import { SafeAreaView } from "react-native";
-import { Market, Header } from "../../components";
+import { SafeAreaView, ScrollView } from "react-native";
+import { Header, Market } from "../../components";
+import { tw } from "../../utils/tailwind";
 
 const Home: FC = () => {
     return (
-        <SafeAreaView>
+        <SafeAreaView style={tw`bg-black`}>
             <StatusBar backgroundColor="white"/>
+            <ScrollView>
                 <Header />  
                 <Market />
+            </ScrollView>
         </SafeAreaView>
     )
 }

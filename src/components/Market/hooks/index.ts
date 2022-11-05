@@ -1,0 +1,1 @@
+export { useCriptoPricesQuery } from './useCriptoPricesQuery';

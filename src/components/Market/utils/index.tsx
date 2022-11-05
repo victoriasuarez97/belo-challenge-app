@@ -1,16 +1,13 @@
 import React from "react";
 import { ListRenderItem } from "react-native";
 import MarketCards from "../components/Cards";
-import { MarketCardsProps } from "../types";
+import { Price } from "../types";
 
-const renderCards: ListRenderItem<MarketCardsProps> = (params) => (
+const renderCards: ListRenderItem<Price> = (params) => (
     <MarketCards
         name={params.item.name}
         price={params.item.price}
-        currency={params.item.currency}
-        id={params.item.id}
-        ticker={params.item.ticker}
-        variation={params.item.variation}
+        volume={params.item.volume}
     />
 )
 

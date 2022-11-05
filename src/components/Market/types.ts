@@ -1,10 +1,15 @@
-import { CURRENCIES } from "../../types"
-
 export type MarketCardsProps = {
-    id: string
     name: string
-    price: string
-    currency: CURRENCIES
-    ticker: string
-    variation: string
+    price: number
+    currency: string | undefined
+    volume: number
 }
+
+export type Info = {
+    price: number,
+    volume: number
+}
+
+type Cripto = "bitcoin" | "ethereum" | "dai" | "tether"
+
+export type CriptoMap = { [cripto in Cripto]: Info };

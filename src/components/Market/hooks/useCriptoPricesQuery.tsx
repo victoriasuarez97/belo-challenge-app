@@ -1,13 +1,14 @@
 import { UseBaseQueryResult, useQuery } from "react-query"
-import { getCriptoPrices, Response } from "../services"
+import { Coins, CriptoInfo } from "../../../types"
+import { getCriptoPrices } from "../services"
 
 const QUERY_KEY = 'criptoPrices'
 
 type Return = {
     isLoading: UseBaseQueryResult['isLoading']
     isError: UseBaseQueryResult['isError']
-    prices: Response[]
-    coins: string[]
+    prices: CriptoInfo[]
+    coins?: Coins[] | string[]
 }
 
 type UseCriptoPricesQuery = () => Return

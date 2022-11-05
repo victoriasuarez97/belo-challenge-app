@@ -1,11 +1,14 @@
-import Button from './Button/index'
+import Button from './Button'
 import Container from './Container'
-import Header from './Header/index'
-import Market from './Market/index'
+import Exchange from './Exchange'
+import Header from './Header'
+import Wallet from './Wallet'
 
 export {
     Button,
     Header,
-    Market,
-    Container
+    Wallet,
+    Container,
+    Exchange
 }
+

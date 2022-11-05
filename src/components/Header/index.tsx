@@ -20,8 +20,8 @@ const Header: FC = () => {
 				{formatCurrency(balance, currency)}
 			</Text>
 			<View style={tw`pt-5 flex flex-row justify-around items-center`}>
-				<Button title="Send ⬆️" onClick={() => console.log('im send')}/>
-				<Button title="Receive ⬇️" onClick={() => console.log('im received')} />
+				<Button title="Deposit ⬇️" onClick={() => console.log('im send')}/>
+				<Button title="Withdraw ⬆️" isSecondary onClick={() => console.log('im received')} />
 			</View>
 		</View>
 	)

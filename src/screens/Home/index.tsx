@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { Container, Header, Market } from "../../components";
+import { Container, Header, Wallet } from "../../components";
 import { VIEWS } from "../../constants/views";
 import { useViewsContext } from "../../context/Views";
 
@@ -10,7 +10,7 @@ const Home: FC = () => {
         view === VIEWS.HOME
             ? (<Container>
                     <Header />  
-                    <Market />
+                    <Wallet />
                 </Container>)
             : (<></>)
     )

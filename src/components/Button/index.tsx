@@ -4,13 +4,16 @@ import { tw } from '../../utils/tailwind'
 
 type Props = {
     title: string
-    onClick: () => void
+    onClick: () => void,
+    isSecondary?: boolean
 }
 
-const Button: FC<Props> = ({ title, onClick }) => {
+const Button: FC<Props> = ({ title, onClick, isSecondary }) => {
+    const styles = isSecondary ? 'rounded-lg border-2 border-amber-500' : 'bg-amber-500'
+
     return (
-        <Pressable style={tw`w-40 py-3 px-10 bg-amber-400 rounded-lg shadow-md`} onPress={onClick}>
-            <Text style={tw`text-black font-bold text-center`}>
+        <Pressable style={tw`w-42 py-3 px-10 rounded-lg ${styles}`} onPress={onClick}>
+            <Text style={tw`text-white font-bold text-center`}>
                 {title}
             </Text>
         </Pressable>

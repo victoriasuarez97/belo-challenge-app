@@ -20,3 +20,10 @@ export type CriptoBalance = {
     balance: string
     currency: string
 }
+
+export type RootStackParamList = {
+    Home: undefined
+    Swap: undefined
+    Confirmation: undefined
+    Result: undefined
+}

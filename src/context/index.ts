@@ -1,3 +1,2 @@
-export * from './Balance/index'
-export * from './Views/index'
+export * from './Balance/index';
 

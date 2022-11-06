@@ -29,6 +29,13 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
+    "build": {
+      "babel": {
+        "include": [
+          "@ui-kitten/components"
+        ]
+      }
+    },
     "packagerOpts": {
         "sourceExts": [ "js", "json", "ts", "tsx", "jsx", "vue"]
     }

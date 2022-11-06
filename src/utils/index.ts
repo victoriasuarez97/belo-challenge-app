@@ -1,7 +1,10 @@
 import { CURRENCIES } from "../constants/currency"
-import { Currencies } from "../types"
+import { CriptoBalance, Currencies } from "../types"
 
 export const formatCurrency = (value: number | string, currency: Currencies): string => {
-    const formattedNumber = value ? value.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,") : ''
-    return `${formattedNumber} ${CURRENCIES[currency]}`
+    return `${value} ${CURRENCIES[currency]}`
 }
+
+export const removeSelectedCoinFromHolding = (id: string, holdings: CriptoBalance[]): CriptoBalance[] => (
+    holdings.filter((holding) => holding.id !== id)
+)

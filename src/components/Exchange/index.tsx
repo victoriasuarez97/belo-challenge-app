@@ -1,26 +1,20 @@
 import React, { FC } from "react";
-import { Text, View } from 'react-native';
+import { View } from 'react-native';
 import { CriptoBalance } from "../../types";
-import { tw } from "../../utils/tailwind";
-import { CriptoCard } from "./components";
-import { useCriptoPricesQuery } from "./hooks";
+import { removeSelectedCoinFromHolding } from "../../utils";
+import { SwapCoins } from "./components";
 
 type Props = {
     coin: CriptoBalance
+    holding: CriptoBalance[]
 }
 
-const Exchange:FC<Props> = ({ coin }) => {
-    const { coinInfo, isError, isLoading } = useCriptoPricesQuery({ id: coin.id})
+const Exchange:FC<Props> = ({ coin, holding }) => {
+    const newHoldings = removeSelectedCoinFromHolding(coin.id, holding)
 
-    if (isError) return <View><Text>Ups, algo salió mal :(</Text></View>
-    if (isLoading) return <View><Text>Cargando...</Text></View>
-    
     return (
         <View>
-            <CriptoCard isLoading={isLoading} coin={coin} coinInfo={coinInfo}/>
-            <View>
-                <Text style={tw`text-lg font-bold text-white`}>Your Holding + coins</Text>
-            </View>
+            <SwapCoins coin={coin} newHolding={newHoldings}/>
         </View>
     )
 }

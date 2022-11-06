@@ -9,11 +9,11 @@ type Props = {
 }
 
 const Swap: FC<Props> = ({ navigation }) => {
-    const { chosenCoin } = useBalanceContext()
+    const { chosenCoin, holding } = useBalanceContext()
 
     return (
         <Container goBack navigation={navigation}>
-            <Exchange coin={chosenCoin}/>
+            <Exchange coin={chosenCoin} holding={holding}/>
         </Container>
     )
 }

@@ -17,4 +17,6 @@ export type BalanceContext = {
     setTether: Dispatch<SetStateAction<CriptoBalance>>
     setEthereum: Dispatch<SetStateAction<CriptoBalance>>
     holding: CriptoBalance[]
+    swapCoin: CriptoBalance | undefined
+    setSwapCoin: Dispatch<SetStateAction<CriptoBalance | undefined>>
 }

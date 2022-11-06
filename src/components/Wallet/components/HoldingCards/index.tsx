@@ -32,7 +32,6 @@ const HoldingCards: FC<Props> = ({ navigation }) => {
                 ))
             }
         </>
-
     )
 }
 

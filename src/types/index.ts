@@ -7,14 +7,12 @@ export type Currencies = typeof CURRENCIES[keyof typeof CURRENCIES]
 
 export type CriptoInfo = {
     [key: string]: {
-        usd: number,
-        usd_24h_vol: number
-        usd_24h_change: number
+        [key: string]: number
     }
 }
 
 export type CriptoBalance = {
-    id: Coins
+    id: string
     name: string
     ticker: string
     balance: string

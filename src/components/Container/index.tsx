@@ -15,7 +15,7 @@ const Container: FC<Props> = ({ children, navigation, goBack }) => (
                 {
                     goBack &&
                         <Pressable onPress={() => navigation.goBack()}>
-                            <Text style={tw`pt-10 text-lg text-white`}>👈 Go back</Text>
+                            <Text style={tw`pt-5 text-lg text-white`}>👈 Go back</Text>
                         </Pressable>
                 }
                 {children}

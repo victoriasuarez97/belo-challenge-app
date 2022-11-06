@@ -67,7 +67,15 @@ const contextDefaultValues: BalanceContextType = {
         balance: '0',
         currency: 'ETH'
     }),
-    holding: []
+    holding: [],
+    swapCoin: undefined,
+    setSwapCoin: () => ({
+        id: '',
+        name: '',
+        ticker: '',
+        balance: '',
+        currency: ''
+    })
 }
 
 type Props = {
@@ -78,34 +86,48 @@ const BalanceContext = createContext<BalanceContextType>(contextDefaultValues)
 
 const BalanceContextProvider: FC<Props> = ({ children }) => {
     const [currency, setCurrency] = useState<Currencies>('USD')
+
     const [balance, setBalance] = useState<number>(10000)
+
     const [chosenCoin, setChosenCoin] = useState<CriptoBalance|undefined>(undefined)
+
+    const [swapCoin, setSwapCoin] = useState<CriptoBalance>({
+        id: '',
+        name: '',
+        ticker: '',
+        balance: '',
+        currency: ''
+    })
+
     const [bitcoin, setBitcoin] = useState({
         id: COINS.BITCOIN,
         name: 'Bitcoin',
         ticker: 'BTC',
-        balance: '0002345.56',
+        balance: '0,0010239',
         currency: 'BTC'
     })
+
     const [dai, setDai] = useState({
         id: COINS.DAI,
         name: 'Dai',
         ticker: 'DAI',
-        balance: '100.56',
+        balance: '100,56',
         currency: 'DAI'
     })
+
     const [tether, setTether] = useState({
         id: COINS.TETHER,
         name: 'Tether',
         ticker: 'USDT',
-        balance: '09.56',
+        balance: '09,56',
         currency: 'USDT'
     })
+
     const [ethereum, setEthereum] = useState({
         id: COINS.ETHEREUM,
         name: 'Ethereum',
         ticker: 'ETH',
-        balance: '000100.56',
+        balance: '000100,56',
         currency: 'ETH'
     })
 
@@ -127,7 +149,9 @@ const BalanceContextProvider: FC<Props> = ({ children }) => {
             setTether,
             ethereum,
             setEthereum,
-            holding
+            holding,
+            swapCoin,
+            setSwapCoin
         }}>
             {children}
         </BalanceContext.Provider>

@@ -1,15 +1,15 @@
+import { Button, Icon } from '@ui-kitten/components'
 import React, { FC } from "react"
 import { Text, View } from "react-native"
 import { useBalanceContext } from "../../context"
 import { formatCurrency } from "../../utils"
 import { tw } from "../../utils/tailwind"
-import Button from "../Button"
 
 const Header: FC = () => {
 	const { balance, currency } = useBalanceContext()
 
 	return (
-		<View style={tw`bg-black pt-20 pb-10`}>
+		<View style={tw`bg-black py-10 pb-10`}>
 			<Text style={tw`pl-5 text-2xl text-white text-left`}>
 				Hi Jane,
 			</Text>
@@ -20,8 +20,12 @@ const Header: FC = () => {
 				{formatCurrency(balance, currency)}
 			</Text>
 			<View style={tw`pt-5 flex flex-row justify-around items-center`}>
-				<Button title="Deposit ⬇️" onClick={() => console.log('im send')}/>
-				<Button title="Withdraw ⬆️" isSecondary onClick={() => console.log('im received')} />
+				<Button appearance="outline" accessoryLeft={<Icon name="diagonal-arrow-right-down-outline"/>}>
+					{"Receive"}
+				</Button>
+				<Button appearance="outline" accessoryLeft={<Icon name="diagonal-arrow-right-up-outline"/>}>
+					{"Send"}
+				</Button>
 			</View>
 		</View>
 	)

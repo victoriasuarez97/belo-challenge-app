@@ -17,7 +17,7 @@ export default function App () {
   return (
     <>
       <IconRegistry icons={EvaIconsPack} />
-      <ApplicationProvider {...eva} theme={eva.light}>
+      <ApplicationProvider {...eva} theme={eva.dark}>
         <QueryClientProvider client={queryClient}>
             <BalanceContextProvider>
               <NavigationContainer>

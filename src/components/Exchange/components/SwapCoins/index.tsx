@@ -66,7 +66,7 @@ const SwapCoins: FC<Props> = ({ coin, newHolding }) => {
                 {isLoading
                     ? <View style={{ alignSelf: 'center'}}><Spinner /></View>
                     : <Text style={tw`py-5 text-2xl font-bold text-white text-center`}>  
-                        {conversion}
+                        {`${conversion}${selectedCoin.currency}`}
                     </Text>
                 }   
             </View>
@@ -76,6 +76,7 @@ const SwapCoins: FC<Props> = ({ coin, newHolding }) => {
                 selectedIndex={selectedIndex}
                 onSelect={index => selectCoin(index)}
                 placeholder='Choose coin'
+                style={tw`my-3 p-3`}
             >
                 {
                     newHolding.map((holding) => (

@@ -14,7 +14,7 @@ export const findCoinByName = (name: string, holdings: CriptoBalance[]): CriptoB
 )
 
 export const getConversion = (amount: string, coinValue: number): string => {
-    const estimatedAmount = parseFloat(amount) / coinValue
+    const estimatedAmount = parseFloat(amount) * coinValue
     const fixDecimals = estimatedAmount.toFixed(8)
     const formattedAmount = fixDecimals.toString().replace('.', ',')
     return formattedAmount

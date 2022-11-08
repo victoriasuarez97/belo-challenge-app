@@ -1,4 +1,4 @@
-import { Input, Select, SelectItem, Spinner } from "@ui-kitten/components"
+import { Button, Input, Select, SelectItem, Spinner, useTheme } from "@ui-kitten/components"
 import React, { FC, useEffect, useState } from "react"
 import { Text, View } from "react-native"
 import { useBalanceContext } from "../../../../context"
@@ -7,14 +7,15 @@ import { CriptoBalance } from "../../../../types"
 import { getConversion } from "../../../../utils"
 import { tw } from "../../../../utils/tailwind"
 import Error from "../../../Error"
+import useAmountValidation from "../../hooks"
 
 type Props = {
     coin: CriptoBalance
     newHolding: CriptoBalance[]
 }
 
-
 const SwapCoins: FC<Props> = ({ coin, newHolding }) => {
+    const theme = useTheme()
     const { conversion, setConversion } = useBalanceContext()
 
     const [selectedIndex, setSelectedIndex] = useState(undefined);
@@ -26,6 +27,7 @@ const SwapCoins: FC<Props> = ({ coin, newHolding }) => {
         currency: ''
     })
     const [amount, setAmount] = useState<string>('0')
+    const [showModal, setShowModal] = useState<boolean>(false)
     
     const selectCoin = (index): void => {
         setSelectedIndex(index)
@@ -44,6 +46,11 @@ const SwapCoins: FC<Props> = ({ coin, newHolding }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [amount, coinInfo, selectedIndex, coin])
 
+    const { hasError, errorMessage } = useAmountValidation({
+        max: coin.balance,
+        amount
+    })
+
     if (isError) return <Error />
 
     return(
@@ -54,10 +61,11 @@ const SwapCoins: FC<Props> = ({ coin, newHolding }) => {
             <Input
                 onChangeText={(newAmount) => setAmount(newAmount)}
                 value={amount}
-                placeholder="0"
                 keyboardType="numeric"
-                textStyle={{ textAlign: 'center', color: '#ffffff'}}
-                style={tw`text-center text-white my-3 p-3 bg-slate-900 text-xl rounded-lg`}
+                caption={hasError && <View><Text style={{ color: theme['color-danger-500']}}>{errorMessage}</Text></View>}
+                textStyle={{ textAlign: 'center', color: theme['color-primary-100']}}
+                style={tw`text-center text-white mt-3 pb-3 bg-slate-900 text-xl rounded-lg`}
+                status={hasError ? 'danger' : 'success'}
             />
             <Text style={tw`pb-5 text-sm font-bold text-center text-slate-700`}>
                 {`Your balance: ${coin.balance}`}
@@ -76,7 +84,7 @@ const SwapCoins: FC<Props> = ({ coin, newHolding }) => {
                 selectedIndex={selectedIndex}
                 onSelect={index => selectCoin(index)}
                 placeholder='Choose coin'
-                style={tw`my-3 p-3`}
+                style={tw`my-3`}
             >
                 {
                     newHolding.map((holding) => (
@@ -84,6 +92,9 @@ const SwapCoins: FC<Props> = ({ coin, newHolding }) => {
                     ))
                 }
             </Select>
+            <Button disabled={hasError} onPress={() => {setShowModal(true)}}>
+                SWAP
+            </Button>
         </View>
     )
 }

@@ -1,6 +1,6 @@
 export const COINS = {
     BITCOIN: 'bitcoin',
     ETHEREUM: 'ethereum',
-    DAI: 'dai',
-    TETHER: 'tether'
+    BINANCE: 'binancecoin',
+    POLKADOT: 'polkadot'
 } as const

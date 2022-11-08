@@ -13,17 +13,25 @@ const Header: FC = () => {
 			<Text style={tw`pl-5 text-2xl text-white text-left`}>
 				Hi Jane,
 			</Text>
-			<Text style={tw`pt-10 text-2xl text-white text-center font-bold`}>
+			<Text style={tw`pt-10 pb-5 text-2xl text-white text-center font-bold`}>
 				This is your wallet💸
 			</Text>
 			<Text style={tw`pt-3 text-2xl text-white text-center`}>
 				{formatCurrency(balance, currency)}
 			</Text>
 			<View style={tw`pt-5 flex flex-row justify-around items-center`}>
-				<Button appearance="outline" accessoryLeft={<Icon name="diagonal-arrow-right-down-outline"/>}>
+				<Button
+					appearance="outline"
+					style={tw`w-40`}
+					accessoryLeft={<Icon name="diagonal-arrow-right-down-outline"/>}
+				>
 					{"Receive"}
 				</Button>
-				<Button appearance="outline" accessoryLeft={<Icon name="diagonal-arrow-right-up-outline"/>}>
+				<Button
+					appearance="outline"
+					style={tw`w-40`}
+					accessoryLeft={<Icon name="diagonal-arrow-right-up-outline"/>}
+				>
 					{"Send"}
 				</Button>
 			</View>

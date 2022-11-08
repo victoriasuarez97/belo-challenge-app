@@ -5,7 +5,7 @@ import { CriptoBalance, Currencies } from "../../types"
 import { BalanceContext as BalanceContextType } from "./types"
 
 const contextDefaultValues: BalanceContextType = {
-    balance: 0,
+    balance: '0',
     setBalance: () => {},
     currency: 'USD',
     setCurrency: () => {},
@@ -18,19 +18,19 @@ const contextDefaultValues: BalanceContextType = {
         balance: '0',
         currency: 'BTC'
     },
-    tether: {
-        id: 'tether',
-        name: 'Tether',
-        ticker: 'USDT',
+    polkadot: {
+        id: 'dot',
+        name: 'Polkadot',
+        ticker: 'DOT',
         balance: '0',
-        currency: 'USDT'
+        currency: 'DOT'
     },
-    dai: {
-        id: 'dai',
-        name: 'Dai',
-        ticker: 'DAI',
+    binance: {
+        id: 'bnb',
+        name: 'Binance Coin',
+        ticker: 'BNB',
         balance: '0',
-        currency: 'DAI'
+        currency: 'BNB'
     },
     ethereum: {
         id: 'ethereum',
@@ -46,19 +46,19 @@ const contextDefaultValues: BalanceContextType = {
         balance: '0',
         currency: 'BTC'
     }),
-    setDai: () => ({
-        id: 'dai',
-        name: 'Dai',
-        ticker: 'DAI',
+    setBinance: () => ({
+        id: 'bnb',
+        name: 'Binance Coin',
+        ticker: 'BNB',
         balance: '0',
-        currency: 'DAI'
+        currency: 'BNB'
     }),
-    setTether: () => ({
-        id: 'tether',
-        name: 'Tether',
-        ticker: 'USDT',
+    setPolkadot: () => ({
+        id: 'dot',
+        name: 'Polkadot',
+        ticker: 'DOT',
         balance: '0',
-        currency: 'USDT'
+        currency: 'DOT'
     }),
     setEthereum: () => ({
         id: 'ethereum',
@@ -69,13 +69,9 @@ const contextDefaultValues: BalanceContextType = {
     }),
     holding: [],
     swapCoin: undefined,
-    setSwapCoin: () => ({
-        id: '',
-        name: '',
-        ticker: '',
-        balance: '',
-        currency: ''
-    })
+    setSwapCoin: () => undefined,
+    conversion: '0',
+    setConversion: () => '0'
 }
 
 type Props = {
@@ -87,51 +83,47 @@ const BalanceContext = createContext<BalanceContextType>(contextDefaultValues)
 const BalanceContextProvider: FC<Props> = ({ children }) => {
     const [currency, setCurrency] = useState<Currencies>('USD')
 
-    const [balance, setBalance] = useState<number>(10000)
+    const [balance, setBalance] = useState<string>('10,000')
 
     const [chosenCoin, setChosenCoin] = useState<CriptoBalance|undefined>(undefined)
 
-    const [swapCoin, setSwapCoin] = useState<CriptoBalance>({
-        id: '',
-        name: '',
-        ticker: '',
-        balance: '',
-        currency: ''
-    })
+    const [swapCoin, setSwapCoin] = useState<string>('')
 
     const [bitcoin, setBitcoin] = useState({
         id: COINS.BITCOIN,
         name: 'Bitcoin',
         ticker: 'BTC',
-        balance: '0,0010239',
+        balance: '0,00246941',
         currency: 'BTC'
     })
 
-    const [dai, setDai] = useState({
-        id: COINS.DAI,
-        name: 'Dai',
-        ticker: 'DAI',
-        balance: '100,56',
-        currency: 'DAI'
+    const [binance, setBinance] = useState({
+        id: COINS.BINANCE,
+        name: 'Binance Coin',
+        ticker: 'BNB',
+        balance: '0,03089592',
+        currency: 'BNB'
     })
 
-    const [tether, setTether] = useState({
-        id: COINS.TETHER,
-        name: 'Tether',
-        ticker: 'USDT',
-        balance: '09,56',
-        currency: 'USDT'
+    const [polkadot, setPolkadot] = useState({
+        id: COINS.POLKADOT,
+        name: 'Polkadot',
+        ticker: 'DOT',
+        balance: '4,87638999',
+        currency: 'DOT'
     })
 
     const [ethereum, setEthereum] = useState({
         id: COINS.ETHEREUM,
         name: 'Ethereum',
         ticker: 'ETH',
-        balance: '000100,56',
+        balance: '0,09168927',
         currency: 'ETH'
     })
 
-    const holding = [bitcoin, dai, tether, ethereum]
+    const holding = [bitcoin, binance, polkadot, ethereum]
+
+    const [conversion, setConversion] = useState<string>('0')
 
     return(
         <BalanceContext.Provider value={{
@@ -143,15 +135,17 @@ const BalanceContextProvider: FC<Props> = ({ children }) => {
             setChosenCoin,
             bitcoin,
             setBitcoin,
-            dai,
-            setDai,
-            tether,
-            setTether,
+            binance,
+            setBinance,
+            polkadot,
+            setPolkadot,
             ethereum,
             setEthereum,
             holding,
             swapCoin,
-            setSwapCoin
+            setSwapCoin,
+            conversion,
+            setConversion
         }}>
             {children}
         </BalanceContext.Provider>

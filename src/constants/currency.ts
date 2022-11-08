@@ -1,8 +1,8 @@
 export const CRIPTO_CURRENCIES = {
     BTC: 'BTC',
     ETH: 'ETH',
-    DAI: 'DAI',
-    USDT: 'USDT'
+    DOT: 'DOT',
+    BNB: 'BNB'
 }
 
 export const CURRENCIES = {

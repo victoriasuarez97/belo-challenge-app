@@ -1,5 +1,4 @@
 import { UseBaseQueryResult, useQuery } from "react-query"
-import { useBalanceContext } from "../context"
 import { getCriptoPrices } from "../services/getCriptoPrices"
 import { CriptoInfo } from "../types"
 
@@ -19,12 +18,11 @@ type Params = {
 type UseCriptoPricesQuery = (params: Params) => Return
 
 export const useCriptoPricesQuery: UseCriptoPricesQuery = ({ id, currency }) => {
-    const { swapCoin } = useBalanceContext()
-    const { data, isLoading, isError } = useQuery([QUERY_KEY, id, currency], () => getCriptoPrices({ id, currency }), {
-        enabled: swapCoin !== undefined
+    const { data, isLoading, isError, isSuccess } = useQuery([QUERY_KEY, id, currency], () => getCriptoPrices({ id, currency }), {
+        enabled: currency !== ''
     })
 
-    const coinInfo = data ?? {}
+    const coinInfo = (isSuccess && data) ?? {}
     
     return {
         isLoading,

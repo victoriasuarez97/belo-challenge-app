@@ -17,8 +17,10 @@ export type BalanceContext = {
     setPolkadot: Dispatch<SetStateAction<CriptoBalance>>
     setEthereum: Dispatch<SetStateAction<CriptoBalance>>
     holding: CriptoBalance[]
-    swapCoin: string | undefined
-    setSwapCoin: Dispatch<SetStateAction<string | undefined>>
+    amount: string
+    setAmount: Dispatch<SetStateAction<string>>
     conversion: string
     setConversion: Dispatch<SetStateAction<string>>
+    swapCoin: CriptoBalance | undefined
+    setSwapCoin: Dispatch<SetStateAction<CriptoBalance | undefined>>
 }

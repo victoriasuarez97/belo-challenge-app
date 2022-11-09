@@ -1,45 +1,40 @@
 import { Button, Input, Select, SelectItem, Spinner, useTheme } from "@ui-kitten/components"
 import React, { FC, useEffect, useState } from "react"
 import { Text, View } from "react-native"
-import { useBalanceContext } from "../../../../context"
-import { useCriptoPricesQuery } from "../../../../hooks"
-import { CriptoBalance } from "../../../../types"
-import { getConversion } from "../../../../utils"
-import { tw } from "../../../../utils/tailwind"
-import Error from "../../../Error"
-import useAmountValidation from "../../hooks"
+import { VIEWS } from "../../constants/common"
+import { useBalanceContext } from "../../context"
+import { useCriptoPricesQuery } from "../../hooks"
+import { CriptoBalance } from "../../types"
+import { getConversion } from "../../utils"
+import { tw } from "../../utils/tailwind"
+import Error from "../Error"
+import CriptoCard from "./components/CriptoCard"
+import useAmountValidation from "./hooks"
 
 type Props = {
     coin: CriptoBalance
     newHolding: CriptoBalance[]
+    navigation
 }
 
-const SwapCoins: FC<Props> = ({ coin, newHolding }) => {
+const SwapCoins: FC<Props> = ({ coin, newHolding, navigation }) => {
     const theme = useTheme()
-    const { conversion, setConversion } = useBalanceContext()
+
+    const { conversion, setConversion, amount, setAmount, setSwapCoin, swapCoin } = useBalanceContext()
 
     const [selectedIndex, setSelectedIndex] = useState(undefined);
-    const [selectedCoin, setSelectedCoin] = useState<CriptoBalance>({
-        id: '',
-        ticker: '',
-        name: '',
-        balance: '',
-        currency: ''
-    })
-    const [amount, setAmount] = useState<string>('0')
-    const [showModal, setShowModal] = useState<boolean>(false)
     
     const selectCoin = (index): void => {
         setSelectedIndex(index)
         const findCoin = newHolding[index.row]
-        setSelectedCoin(findCoin)
+        setSwapCoin(findCoin)
     }
 
-    const { coinInfo, isError, isLoading } = useCriptoPricesQuery({ id: coin.id, currency: selectedCoin.currency })
+    const { coinInfo, isError, isLoading } = useCriptoPricesQuery({ id: coin.id, currency: swapCoin.currency })
 
     useEffect(() => {
         if (selectedIndex && coinInfo  && amount) {
-            const coinValue = coinInfo[coin.id][selectedCoin.ticker.toLowerCase()]
+            const coinValue = coinInfo[coin.id][swapCoin.ticker.toLowerCase()]
             const estimatedAmount = getConversion(amount, coinValue)
             setConversion(estimatedAmount)
         }
@@ -74,13 +69,13 @@ const SwapCoins: FC<Props> = ({ coin, newHolding }) => {
                 {isLoading
                     ? <View style={{ alignSelf: 'center'}}><Spinner /></View>
                     : <Text style={tw`py-5 text-2xl font-bold text-white text-center`}>  
-                        {`${conversion}${selectedCoin.currency}`}
+                        {`${conversion}${swapCoin.currency}`}
                     </Text>
                 }   
             </View>
             <Select
                 status='primary'
-                value={selectedCoin.name}
+                value={swapCoin.name}
                 selectedIndex={selectedIndex}
                 onSelect={index => selectCoin(index)}
                 placeholder='Choose coin'
@@ -92,7 +87,8 @@ const SwapCoins: FC<Props> = ({ coin, newHolding }) => {
                     ))
                 }
             </Select>
-            <Button disabled={hasError} onPress={() => {setShowModal(true)}}>
+            {coinInfo && <CriptoCard coin={coin} selectedCoin={swapCoin} coinInfo={coinInfo} isLoading={isLoading} />}
+            <Button disabled={hasError} onPress={() => navigation.navigate(VIEWS.CONFIRMATION)}>
                 SWAP
             </Button>
         </View>

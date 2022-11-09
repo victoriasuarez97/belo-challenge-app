@@ -68,10 +68,24 @@ const contextDefaultValues: BalanceContextType = {
         currency: 'ETH'
     }),
     holding: [],
-    swapCoin: undefined,
-    setSwapCoin: () => undefined,
     conversion: '0',
-    setConversion: () => '0'
+    setConversion: () => '0',
+    amount: '0',
+    setAmount: () => '0',
+    swapCoin: {
+        id: '',
+        name: '',
+        ticker: '',
+        balance: '',
+        currency: '' 
+    },
+    setSwapCoin: () => ({
+        id: '',
+        name: '',
+        ticker: '',
+        balance: '',
+        currency: '' 
+    })
 }
 
 type Props = {
@@ -87,7 +101,15 @@ const BalanceContextProvider: FC<Props> = ({ children }) => {
 
     const [chosenCoin, setChosenCoin] = useState<CriptoBalance|undefined>(undefined)
 
-    const [swapCoin, setSwapCoin] = useState<string>('')
+    const [swapCoin, setSwapCoin] = useState<CriptoBalance>({
+        id: '',
+        name: '',
+        ticker: '',
+        balance: '',
+        currency: '' 
+    })
+
+    const [amount, setAmount] = useState<string>('0')
 
     const [bitcoin, setBitcoin] = useState({
         id: COINS.BITCOIN,
@@ -142,10 +164,12 @@ const BalanceContextProvider: FC<Props> = ({ children }) => {
             ethereum,
             setEthereum,
             holding,
-            swapCoin,
-            setSwapCoin,
             conversion,
-            setConversion
+            setConversion,
+            amount,
+            setAmount,
+            swapCoin,
+            setSwapCoin
         }}>
             {children}
         </BalanceContext.Provider>

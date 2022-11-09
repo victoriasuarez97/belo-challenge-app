@@ -1,7 +1,10 @@
-import Home from './Home/index'
-import Swap from './Swap/index'
+import Confirmation from './Confirmation'
+import Home from './Home'
+import Swap from './Swap'
 
 export {
     Home,
-    Swap
+    Swap,
+    Confirmation
 }
+

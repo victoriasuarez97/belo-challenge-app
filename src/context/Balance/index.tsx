@@ -10,6 +10,7 @@ const contextDefaultValues: BalanceContextType = {
     chosenCoin: undefined,
     setChosenCoin: () => {},
     holding: [],
+    setHolding: () => [],
     conversion: 0,
     setConversion: () => 0,
     amount: '0',
@@ -27,8 +28,7 @@ const contextDefaultValues: BalanceContextType = {
         ticker: '',
         balance: 0,
         currency: '' 
-    }),
-    setHolding: () => ([])
+    })
 }
 
 type Props = {
@@ -38,7 +38,7 @@ type Props = {
 const BalanceContext = createContext<BalanceContextType>(contextDefaultValues)
 
 const BalanceContextProvider: FC<Props> = ({ children }) => {
-    const [balance, setBalance] = useState<number>(10000)
+    const [balance, setBalance] = useState<number>(0)
 
     const [chosenCoin, setChosenCoin] = useState<CriptoBalance|undefined>(undefined)
 

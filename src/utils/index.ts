@@ -1,12 +1,27 @@
 import { CriptoBalance, Currencies } from "../types"
 
-export const formatCurrency = (value: number, currency: Currencies): string => (
-    `${value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")} ${currency}`
+export const formatCurrency = (value: number, decimals: number, currency: Currencies): string => (
+    `${value.toFixed(decimals)} ${currency}`
 )
 
 export const removeSelectedCoinFromHolding = (id: string, holdings: CriptoBalance[]): CriptoBalance[] => (
     holdings.filter((holding) => holding.id !== id)
 )
+
+export const getCriptoBalanceInARS = (criptoBalance: number, ars: number): number => (
+    criptoBalance * ars
+)
+
+export const getTotalBalanceInARS = (holding: CriptoBalance[]): number => {
+    const filterByBalance = holding.map((coin) => coin.ars)
+    const sum = filterByBalance.reduce((a, b) => a + b, 0)
+    return sum
+}
+
+export const getTotalBalance = (holding: CriptoBalance[], dollarBlue: number): number => {
+    const arsBalance = getTotalBalanceInARS(holding)
+    return arsBalance / dollarBlue
+}
 
 export const findCoinByName = (name: string, holdings: CriptoBalance[]): CriptoBalance => (
     holdings.find((holding) => holding.name === name)

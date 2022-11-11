@@ -11,12 +11,17 @@ export type CriptoInfo = {
     }
 }
 
+export type Dollar = {
+    blue: number,
+}
+
 export type CriptoBalance = {
     id: string
     name: string
     ticker: string
     balance: number
     currency: string
+    ars?: number
 }
 
 export type RootStackParamList = {

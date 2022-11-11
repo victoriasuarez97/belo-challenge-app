@@ -1,25 +1,29 @@
 import { UseBaseQueryResult, useQuery } from "react-query"
+import { useBalanceContext } from "../context"
 import { getCriptoInARS } from "../services/getCriptoInARS"
-import { CriptoInfo } from "../types"
+import { getCriptoBalanceInARS } from "../utils"
 
-const QUERY_KEY = 'criptoPrices'
+const QUERY_KEY = 'arsPrices'
 
 type Return = {
     isLoading: UseBaseQueryResult['isLoading']
     isError: UseBaseQueryResult['isError']
-    coinInARS: CriptoInfo
 }
 
-type UseCriptInARSQuery = () => Return
+type UseCriptoInARSQuery = () => Return
 
-export const useCriptInARSQuery: UseCriptInARSQuery = () => {
-    const { data, isLoading, isError } = useQuery(QUERY_KEY, getCriptoInARS)
+export const useCriptoInARSQuery: UseCriptoInARSQuery = () => {
+    const { holding, setHolding } = useBalanceContext()
 
-    const coinInARS = data ?? {}
+    const { isLoading, isError } = useQuery(QUERY_KEY, getCriptoInARS, {
+        onSuccess: (data) => {
+            const newHolding = holding.map((coin) => ({...coin, ars: getCriptoBalanceInARS(coin.balance, data[coin.id].ars)}))
+            setHolding(newHolding)
+        }
+    })
 
     return {
         isLoading,
-        isError,
-        coinInARS
+        isError
     }
 }

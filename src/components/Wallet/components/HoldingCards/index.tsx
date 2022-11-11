@@ -4,7 +4,7 @@ import { Pressable, Text, View } from "react-native";
 import { VIEWS } from "../../../../constants/common";
 import { CURRENCIES } from "../../../../constants/currency";
 import { useBalanceContext } from "../../../../context";
-import { useCriptInARSQuery } from "../../../../hooks";
+import { useCriptoInARSQuery } from "../../../../hooks";
 import { CriptoBalance } from "../../../../types";
 import { formatCurrency } from "../../../../utils";
 import { tw } from "../../../../utils/tailwind";
@@ -16,7 +16,7 @@ type Props = {
 const HoldingCards: FC<Props> = ({ navigation }) => {
     const { holding, setChosenCoin } = useBalanceContext()
 
-    const { coinInARS, isLoading } = useCriptInARSQuery()
+    const { isLoading } = useCriptoInARSQuery()
 
     const chooseCoin = (coin: CriptoBalance): void => {
         navigation.navigate(VIEWS.SWAP)
@@ -42,8 +42,8 @@ const HoldingCards: FC<Props> = ({ navigation }) => {
                             <Text style={tw`text-lg font-bold text-white text-right text-green-500`}>
                                     {`${coin.balance} ${coin.currency}`}
                                 </Text>
-                                <Text style={tw`text-lg text-white text-right`}>
-                                    {isLoading ? <Spinner/> : `${formatCurrency(coinInARS[coin.id].ars, CURRENCIES.ARS)}`}
+                                 <Text style={tw`text-lg text-white text-right`}>
+                                    {isLoading ? <Spinner/> : `${formatCurrency(coin.ars, 2, CURRENCIES.ARS)}`}
                                 </Text>
                             </View>
                         </View>

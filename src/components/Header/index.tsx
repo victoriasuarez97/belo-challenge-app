@@ -1,13 +1,16 @@
-import { Button, Icon } from '@ui-kitten/components'
+import { Button, Icon, Spinner } from '@ui-kitten/components'
 import React, { FC } from "react"
 import { Text, View } from "react-native"
 import { CURRENCIES } from '../../constants/currency'
 import { useBalanceContext } from "../../context"
 import { formatCurrency } from '../../utils'
 import { tw } from "../../utils/tailwind"
+import { useDollarBlueQuery } from './hooks/useDollarBlueQuery'
 
 const Header: FC = () => {
 	const { balance } = useBalanceContext()
+
+	const { isLoading } = useDollarBlueQuery()
 
 	return (
 		<View style={tw`bg-black py-10 pb-10`}>
@@ -18,7 +21,7 @@ const Header: FC = () => {
 				This is your wallet💸
 			</Text>
 			<Text style={tw`pt-3 text-2xl text-white text-center`}>
-				{formatCurrency(balance, CURRENCIES.USD)}
+				{isLoading ? <Spinner /> : formatCurrency(balance, 2, CURRENCIES.USD)}
 			</Text>
 			<View style={tw`pt-5 flex flex-row justify-around items-center`}>
 				<Button

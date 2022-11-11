@@ -18,11 +18,11 @@ type Params = {
 type UseCriptoPricesQuery = (params: Params) => Return
 
 export const useCriptoPricesQuery: UseCriptoPricesQuery = ({ id, currency }) => {
-    const { data, isLoading, isError, isSuccess } = useQuery([QUERY_KEY, id, currency], () => getCriptoPrices({ id, currency }), {
+    const { data, isLoading, isError } = useQuery([QUERY_KEY, id, currency], () => getCriptoPrices({ id, currency }), {
         enabled: currency !== ''
     })
 
-    const coinInfo = (isSuccess && data) ?? {}
+    const coinInfo = data ?? {}
     
     return {
         isLoading,

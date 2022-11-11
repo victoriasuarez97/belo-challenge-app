@@ -7,7 +7,7 @@ import { QueryClient, QueryClientProvider } from 'react-query'
 import { VIEWS } from './src/constants/common'
 import { QUERY_CLIENT_DEFAULT_OPTIONS } from './src/constants/currency'
 import { BalanceContextProvider } from './src/context/Balance'
-import { Confirmation, Home, Swap } from './src/screens'
+import { Confirmation, Home, Result, Swap } from './src/screens'
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export default function App () {
@@ -26,6 +26,7 @@ export default function App () {
                   <Stack.Screen name={VIEWS.HOME} component={Home} options={{ headerShown: false }} />
                   <Stack.Screen name={VIEWS.SWAP} component={Swap} options={{ headerShown: false }} />
                   <Stack.Screen name={VIEWS.CONFIRMATION} component={Confirmation} options={{ headerShown: false }} />
+                  <Stack.Screen name={VIEWS.RESULT} component={Result} options={{ headerShown: false }} />
                 </Stack.Navigator>
               </NavigationContainer>
             </BalanceContextProvider>

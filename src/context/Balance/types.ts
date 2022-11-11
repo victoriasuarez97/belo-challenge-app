@@ -2,8 +2,8 @@ import { Dispatch, SetStateAction } from "react"
 import { CriptoBalance, Currencies } from "../../types"
 
 export type BalanceContext = {
-    balance: string
-    setBalance: Dispatch<SetStateAction<string>>
+    balance: number
+    setBalance: Dispatch<SetStateAction<number>>
     currency: Currencies
     setCurrency: Dispatch<SetStateAction<Currencies>>
     chosenCoin?: CriptoBalance
@@ -17,10 +17,11 @@ export type BalanceContext = {
     setPolkadot: Dispatch<SetStateAction<CriptoBalance>>
     setEthereum: Dispatch<SetStateAction<CriptoBalance>>
     holding: CriptoBalance[]
-    amount: string
-    setAmount: Dispatch<SetStateAction<string>>
-    conversion: string
-    setConversion: Dispatch<SetStateAction<string>>
+    amount: number
+    setAmount: Dispatch<SetStateAction<number>>
+    conversion: number
+    setConversion: Dispatch<SetStateAction<number>>
     swapCoin: CriptoBalance | undefined
     setSwapCoin: Dispatch<SetStateAction<CriptoBalance | undefined>>
+    setHolding: Dispatch<SetStateAction<CriptoBalance[]>>
 }

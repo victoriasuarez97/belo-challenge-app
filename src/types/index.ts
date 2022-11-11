@@ -15,7 +15,7 @@ export type CriptoBalance = {
     id: string
     name: string
     ticker: string
-    balance: string
+    balance: number
     currency: string
 }
 

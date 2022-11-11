@@ -1,5 +1,5 @@
 type Params = {
-    max: string
+    max: number
     amount: string
 }
 
@@ -11,10 +11,7 @@ type Return = {
 type UseAmountValidation = (params: Params) => Return
 
 const useAmountValidation: UseAmountValidation = ({ amount, max }) => {
-    const formatMax = max.replace(',', '.')
-    const maximumAmount = parseFloat(formatMax)
-
-    if (parseFloat(amount) > maximumAmount) return {
+    if (parseFloat(amount) > max) return {
         hasError: true,
         errorMessage: 'You dont have enough balance to operate'
     }

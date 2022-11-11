@@ -36,7 +36,7 @@ const SwapCoins: FC<Props> = ({ coin, newHolding, navigation }) => {
         if (selectedIndex && coinInfo  && amount) {
             const coinValue = coinInfo[coin.id][swapCoin.ticker.toLowerCase()]
             const estimatedAmount = getConversion(amount, coinValue)
-            setConversion(estimatedAmount)
+            setConversion(parseFloat(estimatedAmount))
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [amount, coinInfo, selectedIndex, coin])
@@ -54,7 +54,7 @@ const SwapCoins: FC<Props> = ({ coin, newHolding, navigation }) => {
                 {coin.ticker}
             </Text>
             <Input
-                onChangeText={(newAmount) => setAmount(newAmount)}
+                onChangeText={newAmount => setAmount(newAmount)}
                 value={amount}
                 keyboardType="numeric"
                 caption={hasError && <View><Text style={{ color: theme['color-danger-500']}}>{errorMessage}</Text></View>}

@@ -1,11 +1,13 @@
 import { Button, Icon } from '@ui-kitten/components'
 import React, { FC } from "react"
 import { Text, View } from "react-native"
+import { CURRENCIES } from '../../constants/currency'
 import { useBalanceContext } from "../../context"
+import { formatCurrency } from '../../utils'
 import { tw } from "../../utils/tailwind"
 
 const Header: FC = () => {
-	const { balance, currency } = useBalanceContext()
+	const { balance } = useBalanceContext()
 
 	return (
 		<View style={tw`bg-black py-10 pb-10`}>
@@ -16,7 +18,7 @@ const Header: FC = () => {
 				This is your wallet💸
 			</Text>
 			<Text style={tw`pt-3 text-2xl text-white text-center`}>
-				{`${balance} ${currency}`}
+				{formatCurrency(balance, CURRENCIES.USD)}
 			</Text>
 			<View style={tw`pt-5 flex flex-row justify-around items-center`}>
 				<Button

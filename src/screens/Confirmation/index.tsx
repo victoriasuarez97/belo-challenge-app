@@ -19,7 +19,7 @@ const Confirmation:FC<Props>= ({ navigation }) => {
 
     const swap = (): void => {
         try {
-            substractionBalance(chosenCoin.balance, amount)
+            substractionBalance(chosenCoin.balance, parseFloat(amount))
             addBalance(conversion, swapCoin.balance)
             navigation.navigate(VIEWS.RESULT)
         } catch (error) {

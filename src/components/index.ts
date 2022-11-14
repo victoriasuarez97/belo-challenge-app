@@ -1,12 +1,12 @@
 import Container from './Container'
 import Error from './Error'
 import Header from './Header'
+import HoldingCards from './HoldingCards'
 import SwapCoins from './SwapCoins'
-import Wallet from './Wallet'
 
 export {
     Header,
-    Wallet,
+    HoldingCards,
     Container,
     SwapCoins,
     Error

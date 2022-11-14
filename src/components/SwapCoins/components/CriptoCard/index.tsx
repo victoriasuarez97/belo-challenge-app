@@ -1,13 +1,13 @@
 import React, { FC } from "react"
 import { ActivityIndicator, Text, View } from "react-native"
 import { UseBaseQueryResult } from "react-query"
-import { CriptoBalance, CriptoInfo } from "../../../../types"
+import { CoinInfo, CriptoBalance } from "../../../../types"
 import { tw } from "../../../../utils/tailwind"
 
 type Props = {
     coin: CriptoBalance
     selectedCoin: CriptoBalance
-    coinInfo: CriptoInfo
+    coinInfo: CoinInfo
     isLoading: UseBaseQueryResult['isLoading']
 }
 

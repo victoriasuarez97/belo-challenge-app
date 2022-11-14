@@ -1,7 +1,9 @@
-import axios from "axios";
-import { BASE_URL, TIMEOUT } from "../constants/api";
+import axios, { AxiosInstance } from "axios";
+import { TIMEOUT } from "../constants/api";
 
-export const axiosInstance = axios.create({
-    baseURL: BASE_URL,
-    timeout: TIMEOUT
-})
+export const axiosInstance = (baseUrl: string): AxiosInstance => {
+    return axios.create({
+        baseURL: baseUrl,
+        timeout: TIMEOUT
+    })
+}

@@ -1,22 +1,21 @@
 import { Spinner } from "@ui-kitten/components";
 import React, { FC } from "react";
 import { Pressable, Text, View } from "react-native";
-import { VIEWS } from "../../../../constants/common";
-import { CURRENCIES } from "../../../../constants/currency";
-import { useBalanceContext } from "../../../../context";
-import { useCriptoInARSQuery } from "../../../../hooks";
-import { CriptoBalance } from "../../../../types";
-import { formatCurrency } from "../../../../utils";
-import { tw } from "../../../../utils/tailwind";
+import { UseBaseQueryResult } from "react-query";
+import { VIEWS } from "../../constants/common";
+import { CURRENCIES } from "../../constants/currency";
+import { useBalanceContext } from "../../context";
+import { CriptoBalance } from "../../types";
+import { formatCurrency } from "../../utils";
+import { tw } from "../../utils/tailwind";
 
 type Props = {
     navigation
+    isLoading: UseBaseQueryResult['isLoading']
 }
 
-const HoldingCards: FC<Props> = ({ navigation }) => {
+const HoldingCards: FC<Props> = ({ navigation, isLoading }) => {
     const { holding, setChosenCoin } = useBalanceContext()
-
-    const { isLoading } = useCriptoInARSQuery()
 
     const chooseCoin = (coin: CriptoBalance): void => {
         navigation.navigate(VIEWS.SWAP)

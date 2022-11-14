@@ -5,7 +5,7 @@ export type Coins = typeof COINS[keyof typeof COINS]
 
 export type Currencies = typeof CURRENCIES[keyof typeof CURRENCIES]
 
-export type CriptoInfo = {
+export type CoinInfo = {
     [key: string]: {
         [key: string]: number
     }

@@ -16,8 +16,8 @@ export const useDollarBlueQuery: UseDollarBlueQuery = () => {
     const { setBalance, holding } = useBalanceContext()
 
     const { isLoading, isError } = useQuery(QUERY_KEY, getDollarBluePrice, {
-        onSuccess: (data) => {
-            const totalBalance = getTotalBalance(holding, data.blue)
+        onSuccess: async (data) => {
+            const totalBalance = await getTotalBalance(holding, data.blue)
             setBalance(totalBalance)
         }
     })

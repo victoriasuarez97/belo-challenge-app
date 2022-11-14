@@ -1,4 +1,4 @@
-import { Button, Input, Select, SelectItem, Spinner, useTheme } from "@ui-kitten/components"
+import { Button, IndexPath, Input, Select, SelectItem, Spinner, useTheme } from "@ui-kitten/components"
 import React, { FC, useEffect, useState } from "react"
 import { Text, View } from "react-native"
 import { VIEWS } from "../../constants/common"
@@ -8,7 +8,6 @@ import { CriptoBalance } from "../../types"
 import { getConversion } from "../../utils"
 import { tw } from "../../utils/tailwind"
 import Error from "../Error"
-import CriptoCard from "./components/CriptoCard"
 import useAmountValidation from "./hooks"
 
 type Props = {
@@ -24,7 +23,7 @@ const SwapCoins: FC<Props> = ({ coin, newHolding, navigation }) => {
 
     const [selectedIndex, setSelectedIndex] = useState(undefined);
     
-    const selectCoin = (index): void => {
+    const selectCoin = (index: IndexPath): void => {
         setSelectedIndex(index)
         const findCoin = newHolding[index.row]
         setSwapCoin(findCoin)
@@ -33,13 +32,13 @@ const SwapCoins: FC<Props> = ({ coin, newHolding, navigation }) => {
     const { coinInfo, isError, isLoading } = useCriptoPricesQuery({ id: coin.id, currency: swapCoin.currency })
 
     useEffect(() => {
-        if (selectedIndex && coinInfo  && amount) {
+        if (!isLoading && selectedIndex && coinInfo  && amount) {
             const coinValue = coinInfo[coin.id][swapCoin.ticker.toLowerCase()]
             const estimatedAmount = getConversion(amount, coinValue)
             setConversion(parseFloat(estimatedAmount))
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [amount, coinInfo, selectedIndex, coin])
+    }, [amount, coinInfo, selectedIndex, coin, isLoading])
 
     const { hasError, errorMessage } = useAmountValidation({
         max: coin.balance,
@@ -61,6 +60,7 @@ const SwapCoins: FC<Props> = ({ coin, newHolding, navigation }) => {
                 textStyle={{ textAlign: 'center', color: theme['color-primary-100']}}
                 style={tw`text-center text-white mt-3 pb-3 bg-slate-900 text-xl rounded-lg`}
                 status={hasError ? 'danger' : 'success'}
+                maxLength={10}
             />
             <Text style={tw`pb-5 text-sm font-bold text-center text-slate-700`}>
                 {`Your balance: ${coin.balance}`}
@@ -77,7 +77,7 @@ const SwapCoins: FC<Props> = ({ coin, newHolding, navigation }) => {
                 status='primary'
                 value={swapCoin.name}
                 selectedIndex={selectedIndex}
-                onSelect={index => selectCoin(index)}
+                onSelect={(index: IndexPath) => selectCoin(index)}
                 placeholder='Choose coin'
                 style={tw`my-3`}
             >
@@ -87,7 +87,6 @@ const SwapCoins: FC<Props> = ({ coin, newHolding, navigation }) => {
                     ))
                 }
             </Select>
-            {coinInfo && <CriptoCard coin={coin} selectedCoin={swapCoin} coinInfo={coinInfo} isLoading={isLoading} />}
             <Button disabled={hasError} onPress={() => navigation.navigate(VIEWS.CONFIRMATION)}>
                 SWAP
             </Button>

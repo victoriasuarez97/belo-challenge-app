@@ -1,4 +1,5 @@
-import { CriptoInfo } from "../types"
+import { BASE_URL } from "../constants/api"
+import { CoinInfo } from "../types"
 import { axiosInstance } from "./axiosInstance"
 
 type Params = {
@@ -6,10 +7,10 @@ type Params = {
     currency: string
 }
 
-type GetCriptoPrices = (params: Params) => Promise<CriptoInfo>
+type GetCriptoPrices = (params: Params) => Promise<CoinInfo>
 
 export const getCriptoPrices: GetCriptoPrices = async ({ id, currency }) => {
-    const response = await axiosInstance
-        .get(`simple/price?ids=${id}&vs_currencies=${currency.toLowerCase()}&include_24hr_vol=true&include_24hr_change=true`)
+    const response = await axiosInstance(BASE_URL.COIN_GECKO)
+        .get(`simple/price?ids=${id}&vs_currencies=${currency.toLowerCase()}`)
     return response.data
 }

@@ -12,14 +12,14 @@ export const getCriptoBalanceInARS = (criptoBalance: number, ars: number): numbe
     criptoBalance * ars
 )
 
-export const getTotalBalanceInARS = (holding: CriptoBalance[]): number => {
+export const getTotalBalanceInARS = async (holding: CriptoBalance[]): Promise<number> => {
     const filterByBalance = holding.map((coin) => coin.ars)
     const sum = filterByBalance.reduce((a, b) => a + b, 0)
     return sum
 }
 
-export const getTotalBalance = (holding: CriptoBalance[], dollarBlue: number): number => {
-    const arsBalance = getTotalBalanceInARS(holding)
+export const getTotalBalance = async (holding: CriptoBalance[], dollarBlue: number): Promise<number> => {
+    const arsBalance = await getTotalBalanceInARS(holding)
     return arsBalance / dollarBlue
 }
 

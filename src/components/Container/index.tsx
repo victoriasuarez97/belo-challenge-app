@@ -10,9 +10,9 @@ type Props = {
 }
 
 const Container: FC<Props> = ({ children, navigation, goBack }) => (
-    <SafeAreaView style={tw`bg-black p-2 h-full`}>
+    <SafeAreaView style={tw`bg-slate-900 p-3 h-full`}>
         <StatusBar backgroundColor="black"/>
-        <View style={tw`pt-5`}>
+        <View style={tw`pt-3`}>
             <ScrollView>
                 {
                     goBack &&

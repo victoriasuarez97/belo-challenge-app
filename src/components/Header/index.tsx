@@ -1,10 +1,11 @@
-import { Button, Icon } from '@ui-kitten/components'
+import { Avatar, Button, Icon } from '@ui-kitten/components'
 import React, { FC } from "react"
 import { Text, View } from "react-native"
 import { UseBaseQueryResult } from 'react-query'
 import { CURRENCIES } from '../../constants/currency'
 import { formatCurrency } from '../../utils'
 import { tw } from "../../utils/tailwind"
+import Card from '../Card'
 import { useDollarBlueQuery } from './hooks/useDollarBlueQuery'
 
 type Props = {
@@ -21,17 +22,22 @@ const Header: FC<Props> = ({ isLoading }) => {
 	const successComponent = formatCurrency(balance, 2, CURRENCIES.USD)
 
 	return (
-		<View style={tw`bg-black py-10 pb-10`}>
-			<Text style={tw`pl-5 text-2xl text-white text-left`}>
-				Hi Jane,
-			</Text>
-			<Text style={tw`pt-10 pb-5 text-2xl text-white text-center font-bold`}>
-				This is your wallet💸
-			</Text>
-			<Text style={tw`pt-3 text-2xl text-white text-center`}>
-				{loadingComponent || errorComponent || successComponent}
-			</Text>
-			<View style={tw`pt-5 flex flex-row justify-around items-center`}>
+		<View style={tw`pb-10`}>
+			<View style={tw`flex flex-row items-center bg-slate-800 p-3 rounded-lg justify-start w-36`}>
+				<Avatar size='tiny' source={require('../../assets/cat.png')}/>
+				<Text style={tw`pl-2 text-base text-indigo-500 font-bold`}>
+					@janek1997
+				</Text>
+			</View>
+			<Card>
+				<Text style={tw`text-base text-indigo-400 text-center`}>
+					Total balance
+				</Text>
+				<Text style={tw`pt-3 text-2xl text-white text-center font-bold`}>
+					{loadingComponent || errorComponent || successComponent}
+				</Text>
+			</Card>
+			<View style={tw`flex flex-row justify-around items-center`}>
 				<Button
 					appearance="outline"
 					style={tw`w-40`}

@@ -21,9 +21,9 @@ type UseDollarBlueQuery = (params: Params) => Return
 export const useDollarBlueQuery: UseDollarBlueQuery = ({ ARSPriceIsLoading }) => {
     const [balance, setBalance] = useState<number>(0)
     
-    const {  holding } = useBalanceContext()
+    const { holding } = useBalanceContext()
 
-    const { isLoading, isError } = useQuery(QUERY_KEY, getDollarBluePrice, {
+    const { isLoading, isError } = useQuery([QUERY_KEY, holding], getDollarBluePrice, {
         onSuccess: (data) => {
             const totalBalance = getTotalBalance(holding, data.blue)
             setBalance(totalBalance)

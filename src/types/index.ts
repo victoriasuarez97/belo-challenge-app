@@ -17,6 +17,7 @@ export type Dollar = {
 
 export type CriptoBalance = {
     id: string
+    image: string
     name: string
     ticker: string
     balance: number

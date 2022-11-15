@@ -1,6 +1,7 @@
 import { Spinner } from "@ui-kitten/components";
+import { useAssets } from "expo-asset";
 import React, { FC } from "react";
-import { Pressable, Text, View } from "react-native";
+import { Image, Pressable, Text, View } from "react-native";
 import { UseBaseQueryResult } from "react-query";
 import { VIEWS } from "../../constants/common";
 import { CURRENCIES } from "../../constants/currency";
@@ -19,6 +20,13 @@ type Props = {
 const HoldingCards: FC<Props> = ({ navigation, isLoading, isError }) => {
     const { holding, setFromCoin } = useBalanceContext()
 
+    const [assets] = useAssets([
+        require('../../assets/bitcoin.png'),
+        require('../../assets/binance.png'),
+        require('../../assets/polkadot.png'),
+        require('../../assets/ethereum.png')
+    ]);
+
     const chooseCoin = (coin: CriptoBalance): void => {
         navigation.navigate(VIEWS.SWAP)
         setFromCoin(coin)
@@ -29,23 +37,26 @@ const HoldingCards: FC<Props> = ({ navigation, isLoading, isError }) => {
     return (
         <>
             {
-                holding.map((coin) => (
+                holding.map((coin, i) => (
                     <Pressable
                         onPress={() => chooseCoin(coin)}
                         key={coin.id}
                     >
-                        <View style={tw`mt-3 mb-3 p-5 bg-indigo-800 rounded-lg flex flex-row justify-between`}>
+                        <View style={tw`mt-3 mb-3 py-5 px-3 bg-indigo-800 rounded-lg flex flex-row justify-between items-center`}>
                             <View style={tw`flex flex-row items-center justify-around`}>
-                                <View>
-                                    <Text style={tw`text-lg font-bold text-white`}>{coin.name}</Text>
-                                    <Text style={tw`text-lg text-white`}>{coin.ticker}</Text>
+                                <View style={tw`flex flex-row items-center`}>
+                                    {assets && <Image source={assets[i]} style={tw`w-12 h-12`}/>}
+                                    <View style={tw`px-2`}>
+                                        <Text style={tw`text-lg font-bold text-white`}>{coin.name}</Text>
+                                        <Text style={tw`text-base text-white`}>{coin.ticker}</Text>
+                                    </View>
                                 </View>
                             </View>
                             <View>
                                 <Text style={tw`text-lg font-bold text-white text-right text-green-500`}>
-                                    {`${coin.balance} ${coin.currency}`}
+                                    {formatCurrency(coin.balance, 8, coin.currency)}
                                 </Text>
-                                <Text style={tw`text-lg text-white text-right`}>
+                                <Text style={tw`text-base text-white text-right`}>
                                     {isLoading ? <Spinner/> : formatCurrency(coin.ars, 2, CURRENCIES.ARS)}
                                 </Text>
                             </View>

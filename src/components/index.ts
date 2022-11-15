@@ -1,3 +1,4 @@
+import Card from './Card'
 import Container from './Container'
 import Error from './Error'
 import Header from './Header'
@@ -9,6 +10,7 @@ export {
     HoldingCards,
     Container,
     SwapCoins,
-    Error
+    Error,
+    Card
 }
 

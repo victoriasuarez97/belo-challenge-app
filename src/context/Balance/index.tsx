@@ -7,6 +7,7 @@ import { BalanceContext as BalanceContextType } from "./types"
 const contextDefaultValues: BalanceContextType = {
     fromCoin: {
         id: '',
+        image: '../../assets/bitcoin.png',
         name: '',
         ticker: '',
         balance: 0,
@@ -15,6 +16,7 @@ const contextDefaultValues: BalanceContextType = {
     },
     setFromCoin: () => ({
         id: '',
+        image: '../../assets/bitcoin.png',
         name: '',
         ticker: '',
         balance: 0,
@@ -29,6 +31,7 @@ const contextDefaultValues: BalanceContextType = {
     setAmount: () => '0',
     toCoin: {
         id: '',
+        image: '../../assets/bitcoin.png',
         name: '',
         ticker: '',
         balance: 0,
@@ -37,6 +40,7 @@ const contextDefaultValues: BalanceContextType = {
     },
     setToCoin: () => ({
         id: '',
+        image: '../../assets/bitcoin.png',
         name: '',
         ticker: '',
         balance: 0,
@@ -54,6 +58,7 @@ const BalanceContext = createContext<BalanceContextType>(contextDefaultValues)
 const BalanceContextProvider: FC<Props> = ({ children }) => {
     const [fromCoin, setFromCoin] = useState<CriptoBalance|undefined>({
         id: '',
+        image: '../../assets/bitcoin.png',
         name: '',
         ticker: '',
         balance: 0,
@@ -63,6 +68,7 @@ const BalanceContextProvider: FC<Props> = ({ children }) => {
 
     const [toCoin, setToCoin] = useState<CriptoBalance>({
         id: '',
+        image: '../../assets/bitcoin.png',
         name: '',
         ticker: '',
         balance: 0,

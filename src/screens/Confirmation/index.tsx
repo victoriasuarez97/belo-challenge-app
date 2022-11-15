@@ -1,11 +1,11 @@
 import { Button, Divider } from "@ui-kitten/components";
 import React, { FC, useEffect, useState } from "react";
 import { Text, View } from "react-native";
-import { Container } from "../../components";
+import { Card, Container } from "../../components";
 import { VIEWS } from "../../constants/common";
 import { useBalanceContext } from "../../context";
 import { CriptoBalance } from "../../types";
-import { addBalance, substractionBalance, updateHolding } from "../../utils";
+import { addBalance, formatCurrency, substractionBalance, updateHolding } from "../../utils";
 import { tw } from "../../utils/tailwind";
 
 type Props = {
@@ -34,21 +34,27 @@ const Confirmation:FC<Props>= ({ navigation }) => {
 
     return (
         <Container navigation={navigation} goBack>
-            <Text style={tw`text-3xl font-bold text-white text-center`}>Confirm swap</Text>
-            <Text style={tw`pt-5 text-lg text-white`}>You will swap</Text>
-            <View style={tw`flex flex-row justify-between`}>
-                <Text style={tw`pt-3 text-xl font-bold text-white`}>{fromCoin.name}</Text>
-                <Text style={tw`pt-3 text-xl font-bold text-white`}>{`${amount}${fromCoin.currency}`}</Text>
+            <View style={tw`p-2`}>
+                <Text style={tw`py-5 text-2xl font-bold text-white text-left`}>
+                    Confirm swap
+                </Text>
+                <Card>
+                    <Text style={tw`text-base text-indigo-400`}>You will swap</Text>
+                    <View style={tw`flex flex-row justify-between`}>
+                        <Text style={tw`pt-3 text-xl font-bold text-white`}>{fromCoin.name}</Text>
+                        <Text style={tw`pt-3 text-xl font-bold text-white`}>{formatCurrency(parseFloat(amount), 8, fromCoin.currency)}</Text>
+                    </View>
+                    <Divider style={tw`my-5 bg-white`}/>
+                    <Text style={tw`text-base text-indigo-400`}>For</Text>
+                    <View style={tw`flex flex-row justify-between`}>
+                        <Text style={tw`pt-3 text-xl font-bold text-white`}>{toCoin.name}</Text>
+                        <Text style={tw`pt-3 text-xl font-bold text-white`}>{formatCurrency(conversion, 8, toCoin.currency)}</Text>
+                    </View>
+                </Card>
+                <Button onPress={swap}>
+                    CONFIRM
+                </Button>
             </View>
-            <Divider style={tw`my-5`}/>
-            <Text style={tw`text-lg text-white`}>For</Text>
-            <View style={tw`flex flex-row justify-between`}>
-                <Text style={tw`pt-3 text-xl font-bold text-white`}>{toCoin.name}</Text>
-                <Text style={tw`pt-3 text-xl font-bold text-white`}>{`${conversion}${toCoin.currency}`}</Text>
-            </View>
-            <Button style={tw`my-10`} onPress={swap}>
-                CONFIRM
-            </Button>
         </Container>
     )
 }

@@ -4,8 +4,9 @@ import { Text, View } from "react-native"
 import { VIEWS } from "../../constants/common"
 import { useBalanceContext } from "../../context"
 import { useCriptoPricesQuery } from "../../hooks"
-import { getConversion, removeSelectedCoinFromHolding } from "../../utils"
+import { formatCurrency, getConversion, removeSelectedCoinFromHolding } from "../../utils"
 import { tw } from "../../utils/tailwind"
+import Card from "../Card"
 import Error from "../Error"
 import useAmountValidation from "./hooks"
 
@@ -47,46 +48,53 @@ const SwapCoins: FC<Props> = ({ navigation }) => {
     if (isError) return <Error />
 
     return(
-        <View>
-            <Text style={tw`text-3xl font-bold text-white text-center`}>
-                {fromCoin.ticker}
+        <View style={tw`p-2`}>
+            <Text style={tw`py-5 text-2xl font-bold text-white text-left`}>
+                Swap coins
             </Text>
-            <Input
-                onChangeText={newAmount => setAmount(newAmount)}
-                value={amount}
-                keyboardType="numeric"
-                caption={hasError && <View><Text style={{ color: theme['color-danger-500']}}>{errorMessage}</Text></View>}
-                textStyle={{ textAlign: 'center', color: theme['color-primary-100']}}
-                style={tw`text-center text-white mt-3 pb-3 bg-slate-900 text-xl rounded-lg`}
-                status={hasError ? 'danger' : 'success'}
-                maxLength={10}
-            />
-            <Text style={tw`pb-5 text-sm font-bold text-center text-slate-700`}>
-                {`Your balance: ${fromCoin.balance}`}
-            </Text>
-            <View>
-                {isLoading
-                    ? <View style={{ alignSelf: 'center'}}><Spinner /></View>
-                    : <Text style={tw`py-5 text-2xl font-bold text-white text-center`}>  
-                        {`${conversion}${toCoin.currency}`}
-                    </Text>
-                }   
-            </View>
-            <Select
-                status='primary'
-                value={toCoin.name}
-                selectedIndex={selectedIndex}
-                onSelect={(index: IndexPath) => selectCoin(index)}
-                placeholder='Choose coin'
-                style={tw`my-3`}
-            >
-                {
-                    newHoldings.map((holding) => (
-                        <SelectItem title={holding.name} key={holding.ticker}/>
-                    ))
-                }
-            </Select>
-            <Button disabled={hasError} onPress={() => navigation.navigate(VIEWS.CONFIRMATION)}>
+            <Card>
+                <Text style={tw`text-3xl font-bold text-white text-center`}>
+                    {fromCoin.ticker}
+                </Text>
+                <Input
+                    onChangeText={newAmount => setAmount(newAmount)}
+                    value={amount}
+                    keyboardType="numeric"
+                    caption={hasError && <View><Text style={{ color: theme['color-danger-500']}}>{errorMessage}</Text></View>}
+                    textStyle={{ textAlign: 'center', color: theme['color-primary-100']}}
+                    style={tw`text-center text-white mt-3 pb-3 bg-slate-900 text-xl rounded-lg`}
+                    status={hasError ? 'danger' : 'success'}
+                    maxLength={10}
+                />
+                <Text style={tw`pb-5 text-sm font-bold text-center text-indigo-400`}>
+                    {`${fromCoin.name} balance: ${formatCurrency(fromCoin.balance, 8, fromCoin.currency)}`}
+                </Text>
+                <View>
+                    {isLoading
+                        ? <View style={{ alignSelf: 'center'}}><Spinner /></View>
+                        : <Text style={tw`pt-5 text-3xl font-bold text-white text-center`}>  
+                            {formatCurrency(conversion, 8, toCoin.currency)}
+                        </Text>
+                    }   
+                </View>
+                <Select
+                    status='primary'
+                    value={toCoin.name}
+                    selectedIndex={selectedIndex}
+                    onSelect={(index: IndexPath) => selectCoin(index)}
+                    placeholder='Choose coin'
+                    style={tw`mt-3 mb-2`}
+                >
+                    {
+                        newHoldings.map((holding) => (
+                            <SelectItem title={holding.name} key={holding.ticker}/>
+                        ))
+                    }
+                </Select>
+            </Card>
+            <Button
+                disabled={hasError || amount === '0' || amount === ''}
+                onPress={() => navigation.navigate(VIEWS.CONFIRMATION)}>
                 SWAP
             </Button>
         </View>

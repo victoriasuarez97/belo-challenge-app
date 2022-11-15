@@ -15,7 +15,7 @@ type UseCriptoInARSQuery = () => Return
 export const useCriptoInARSQuery: UseCriptoInARSQuery = () => {
     const { holding, setHolding } = useBalanceContext()
 
-    const { isLoading, isError } = useQuery(QUERY_KEY, getCriptoInARS, {
+    const { isLoading, isError } = useQuery([QUERY_KEY, holding], getCriptoInARS, {
         onSuccess: (data) => {
             const newHolding = holding.map((coin) => ({...coin, ars: getCriptoBalanceInARS(coin.balance, data[coin.id].ars)}))
             setHolding(newHolding)

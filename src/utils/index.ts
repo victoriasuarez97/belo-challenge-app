@@ -8,10 +8,9 @@ export const removeSelectedCoinFromHolding = (id: string, holdings: CriptoBalanc
     holdings.filter((holding) => holding.id !== id)
 )
 
-export const getCriptoBalanceInARS = (criptoBalance: number, ars: number): number => {
-    const multiplic = criptoBalance * ars
-    return multiplic
-}
+export const getCriptoBalanceInARS = (criptoBalance: number, ars: number): number => (
+    criptoBalance * ars
+)
 
 export const getTotalBalanceInARS = (holding: CriptoBalance[]): number => (
     holding.map((coin) => coin.ars).reduce((a, b) => a + b, 0)
@@ -31,23 +30,29 @@ export const getConversion = (amount: string, coinValue: number): string => {
     return estimatedAmount.toFixed(8)
 }
 
-export const updateHolding = (holding: CriptoBalance[], coin: CriptoBalance, updatedBalance: number): CriptoBalance[] => {
-    const makeUpdate = holding.map((tenure) => (tenure === coin
-        ? { ...tenure, balance: updatedBalance }
-        : tenure
-    ))
+export const substractionBalance = (coinBalance: number, amountInvested: number): number => (
+    coinBalance - amountInvested
+)
 
-    return makeUpdate
-}
+export const addBalance = (amountInvested: number, coinBalance: number): number => (
+    amountInvested + coinBalance
+)
 
-
-export const substractionBalance = (coinBalance: number, amountInvested: number): number => {
-    const substraction = coinBalance - amountInvested
-    return substraction
-}
-
-
-export const addBalance = (amountInvested: number, coinBalance: number): number => {
-    const suma = amountInvested + coinBalance
-    return suma
-}
+export const updateHolding = (
+    holding: CriptoBalance[],
+    fromCoin: CriptoBalance,
+    updatedFromBalance: number,
+    toCoin: CriptoBalance,
+    updatedToBalance: number,): CriptoBalance[] => (
+    holding.map((tenure) => {
+        if (tenure === fromCoin) {
+            const updatedCoin = { ...tenure, balance: updatedFromBalance }
+            return updatedCoin
+        } else if (tenure === toCoin) {
+            const updatedCoin = { ...tenure, balance: updatedToBalance }
+            return updatedCoin
+        } else {
+            return tenure
+        }
+    })
+)

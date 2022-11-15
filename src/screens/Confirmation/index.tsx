@@ -25,9 +25,9 @@ const Confirmation:FC<Props>= ({ navigation }) => {
     useEffect(() => {
         if (confirm) {
             const remainingBalance = substractionBalance(fromCoin.balance, parseFloat(amount))
-            setHolding(updateHolding(holding, fromCoin, remainingBalance))
             const updatedBalance = addBalance(conversion, toCoin.balance)
-            setHolding(updateHolding(holding, toCoin, updatedBalance))
+
+            setHolding(updateHolding(holding, fromCoin, remainingBalance, toCoin, updatedBalance))
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [confirm])

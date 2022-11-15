@@ -20,7 +20,7 @@ const SwapCoins: FC<Props> = ({ navigation }) => {
 
     const newHoldings = removeSelectedCoinFromHolding(fromCoin.id, holding)
 
-    const [selectedIndex, setSelectedIndex] = useState(undefined);
+    const [selectedIndex, setSelectedIndex] = useState(undefined)
     
     const selectCoin = (index: IndexPath): void => {
         setSelectedIndex(index)

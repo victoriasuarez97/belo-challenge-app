@@ -3,7 +3,6 @@ import React, { FC } from "react"
 import { Text, View } from "react-native"
 import { UseBaseQueryResult } from 'react-query'
 import { CURRENCIES } from '../../constants/currency'
-import { useBalanceContext } from "../../context"
 import { formatCurrency } from '../../utils'
 import { tw } from "../../utils/tailwind"
 import { useDollarBlueQuery } from './hooks/useDollarBlueQuery'
@@ -13,11 +12,9 @@ type Props = {
 }
 
 const Header: FC<Props> = ({ isLoading }) => {
-	const { balance } = useBalanceContext()
+	const { balance, isLoading: isDollarBlueLoading, isError } = useDollarBlueQuery({ ARSPriceIsLoading: isLoading })
 
-	const { isLoading: isDollarBlueLoading, isError } = useDollarBlueQuery()
-
-	const loadingComponent = (isLoading || isDollarBlueLoading) ? '...' : null
+	const loadingComponent = isDollarBlueLoading ? '...' : null
 
 	const errorComponent = isError ? 'Sorry, something went wrong. Try again later 😢' : null
 

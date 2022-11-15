@@ -5,29 +5,43 @@ import { CriptoBalance } from "../../types"
 import { BalanceContext as BalanceContextType } from "./types"
 
 const contextDefaultValues: BalanceContextType = {
-    balance: 0,
-    setBalance: () => {},
-    chosenCoin: undefined,
-    setChosenCoin: () => {},
+    fromCoin: {
+        id: '',
+        name: '',
+        ticker: '',
+        balance: 0,
+        currency: '',
+        ars: 0 
+    },
+    setFromCoin: () => ({
+        id: '',
+        name: '',
+        ticker: '',
+        balance: 0,
+        currency: '',
+        ars: 0
+    }),
     holding: [],
     setHolding: () => [],
     conversion: 0,
     setConversion: () => 0,
     amount: '0',
     setAmount: () => '0',
-    swapCoin: {
+    toCoin: {
         id: '',
         name: '',
         ticker: '',
         balance: 0,
-        currency: '' 
+        currency: '',
+        ars: 0 
     },
-    setSwapCoin: () => ({
+    setToCoin: () => ({
         id: '',
         name: '',
         ticker: '',
         balance: 0,
-        currency: '' 
+        currency: '',
+        ars: 0
     })
 }
 
@@ -38,16 +52,22 @@ type Props = {
 const BalanceContext = createContext<BalanceContextType>(contextDefaultValues)
 
 const BalanceContextProvider: FC<Props> = ({ children }) => {
-    const [balance, setBalance] = useState<number>(0)
-
-    const [chosenCoin, setChosenCoin] = useState<CriptoBalance|undefined>(undefined)
-
-    const [swapCoin, setSwapCoin] = useState<CriptoBalance>({
+    const [fromCoin, setFromCoin] = useState<CriptoBalance|undefined>({
         id: '',
         name: '',
         ticker: '',
         balance: 0,
-        currency: '' 
+        currency: '',
+        ars: 0
+    })
+
+    const [toCoin, setToCoin] = useState<CriptoBalance>({
+        id: '',
+        name: '',
+        ticker: '',
+        balance: 0,
+        currency: '',
+        ars: 0
     })
 
     const [amount, setAmount] = useState<string>('0')
@@ -58,17 +78,15 @@ const BalanceContextProvider: FC<Props> = ({ children }) => {
 
     return(
         <BalanceContext.Provider value={{
-            balance,
-            setBalance,
-            chosenCoin,
-            setChosenCoin,
+            fromCoin,
+            setFromCoin,
             holding,
             conversion,
             setConversion,
             amount,
             setAmount,
-            swapCoin,
-            setSwapCoin,
+            toCoin,
+            setToCoin,
             setHolding
         }}>
             {children}

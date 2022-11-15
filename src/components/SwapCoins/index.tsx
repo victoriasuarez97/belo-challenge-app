@@ -4,44 +4,43 @@ import { Text, View } from "react-native"
 import { VIEWS } from "../../constants/common"
 import { useBalanceContext } from "../../context"
 import { useCriptoPricesQuery } from "../../hooks"
-import { CriptoBalance } from "../../types"
-import { getConversion } from "../../utils"
+import { getConversion, removeSelectedCoinFromHolding } from "../../utils"
 import { tw } from "../../utils/tailwind"
 import Error from "../Error"
 import useAmountValidation from "./hooks"
 
 type Props = {
-    coin: CriptoBalance
-    newHolding: CriptoBalance[]
     navigation
 }
 
-const SwapCoins: FC<Props> = ({ coin, newHolding, navigation }) => {
+const SwapCoins: FC<Props> = ({ navigation }) => {
     const theme = useTheme()
 
-    const { conversion, setConversion, amount, setAmount, setSwapCoin, swapCoin } = useBalanceContext()
+    const { holding, fromCoin, conversion, setConversion, amount, setAmount, setToCoin, toCoin } = useBalanceContext()
+
+    const newHoldings = removeSelectedCoinFromHolding(fromCoin.id, holding)
 
     const [selectedIndex, setSelectedIndex] = useState(undefined);
     
     const selectCoin = (index: IndexPath): void => {
         setSelectedIndex(index)
-        const findCoin = newHolding[index.row]
-        setSwapCoin(findCoin)
+        const findCoin = newHoldings[index.row]
+        setToCoin(findCoin)
     }
 
-    const { coinInfo, isError, isLoading } = useCriptoPricesQuery({ id: coin.id, currency: swapCoin.currency })
+    const { coinInfo, isError, isLoading } = useCriptoPricesQuery({ id: fromCoin.id, currency: toCoin.currency })
 
     useEffect(() => {
         if (!isLoading && selectedIndex && coinInfo  && amount) {
-            const coinValue = coinInfo[coin.id][swapCoin.ticker.toLowerCase()]
+            const coinValue = coinInfo[fromCoin.id][toCoin.ticker.toLowerCase()]
             const estimatedAmount = getConversion(amount, coinValue)
             setConversion(parseFloat(estimatedAmount))
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [amount, coinInfo, selectedIndex, coin, isLoading])
+    }, [amount, coinInfo, selectedIndex, fromCoin, isLoading])
 
     const { hasError, errorMessage } = useAmountValidation({
-        max: coin.balance,
+        max: fromCoin.balance,
         amount
     })
 
@@ -50,7 +49,7 @@ const SwapCoins: FC<Props> = ({ coin, newHolding, navigation }) => {
     return(
         <View>
             <Text style={tw`text-3xl font-bold text-white text-center`}>
-                {coin.ticker}
+                {fromCoin.ticker}
             </Text>
             <Input
                 onChangeText={newAmount => setAmount(newAmount)}
@@ -63,26 +62,26 @@ const SwapCoins: FC<Props> = ({ coin, newHolding, navigation }) => {
                 maxLength={10}
             />
             <Text style={tw`pb-5 text-sm font-bold text-center text-slate-700`}>
-                {`Your balance: ${coin.balance}`}
+                {`Your balance: ${fromCoin.balance}`}
             </Text>
             <View>
                 {isLoading
                     ? <View style={{ alignSelf: 'center'}}><Spinner /></View>
                     : <Text style={tw`py-5 text-2xl font-bold text-white text-center`}>  
-                        {`${conversion}${swapCoin.currency}`}
+                        {`${conversion}${toCoin.currency}`}
                     </Text>
                 }   
             </View>
             <Select
                 status='primary'
-                value={swapCoin.name}
+                value={toCoin.name}
                 selectedIndex={selectedIndex}
                 onSelect={(index: IndexPath) => selectCoin(index)}
                 placeholder='Choose coin'
                 style={tw`my-3`}
             >
                 {
-                    newHolding.map((holding) => (
+                    newHoldings.map((holding) => (
                         <SelectItem title={holding.name} key={holding.ticker}/>
                     ))
                 }

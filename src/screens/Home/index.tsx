@@ -7,12 +7,12 @@ type Props = {
 }
 
 const Home: FC<Props> = ({ navigation }) => {
-     const { isLoading: isCriptoInARSLoading } = useCriptoInARSQuery()
+     const { isLoading: isCriptoInARSLoading, isError } = useCriptoInARSQuery()
 
     return (
         <Container>
             <Header isLoading={isCriptoInARSLoading} />  
-            <HoldingCards isLoading={isCriptoInARSLoading} navigation={navigation} />
+            <HoldingCards isLoading={isCriptoInARSLoading} isError={isError} navigation={navigation} />
         </Container>
     )
 }

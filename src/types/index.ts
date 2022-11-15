@@ -21,7 +21,7 @@ export type CriptoBalance = {
     ticker: string
     balance: number
     currency: string
-    ars?: number
+    ars: number
 }
 
 export type RootStackParamList = {

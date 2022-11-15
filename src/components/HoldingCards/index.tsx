@@ -8,19 +8,23 @@ import { useBalanceContext } from "../../context";
 import { CriptoBalance } from "../../types";
 import { formatCurrency } from "../../utils";
 import { tw } from "../../utils/tailwind";
+import Error from "../Error";
 
 type Props = {
     navigation
     isLoading: UseBaseQueryResult['isLoading']
+    isError: UseBaseQueryResult['isError']
 }
 
-const HoldingCards: FC<Props> = ({ navigation, isLoading }) => {
-    const { holding, setChosenCoin } = useBalanceContext()
+const HoldingCards: FC<Props> = ({ navigation, isLoading, isError }) => {
+    const { holding, setFromCoin } = useBalanceContext()
 
     const chooseCoin = (coin: CriptoBalance): void => {
         navigation.navigate(VIEWS.SWAP)
-        setChosenCoin(coin)
+        setFromCoin(coin)
     }
+
+    if (isError) return <Error />
 
     return (
         <>
@@ -38,11 +42,11 @@ const HoldingCards: FC<Props> = ({ navigation, isLoading }) => {
                                 </View>
                             </View>
                             <View>
-                            <Text style={tw`text-lg font-bold text-white text-right text-green-500`}>
+                                <Text style={tw`text-lg font-bold text-white text-right text-green-500`}>
                                     {`${coin.balance} ${coin.currency}`}
                                 </Text>
-                                 <Text style={tw`text-lg text-white text-right`}>
-                                    {isLoading ? <Spinner/> : `${formatCurrency(coin.ars, 2, CURRENCIES.ARS)}`}
+                                <Text style={tw`text-lg text-white text-right`}>
+                                    {isLoading ? <Spinner/> : formatCurrency(coin.ars, 2, CURRENCIES.ARS)}
                                 </Text>
                             </View>
                         </View>

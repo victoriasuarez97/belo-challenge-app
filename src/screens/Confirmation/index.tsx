@@ -2,7 +2,7 @@ import { Button, Divider } from "@ui-kitten/components";
 import React, { FC, useEffect, useState } from "react";
 import { Text, View } from "react-native";
 import { Card, Container } from "../../components";
-import { VIEWS } from "../../constants/common";
+import { DEFAULT_COIN_VALUES, VIEWS } from "../../constants/common";
 import { useBalanceContext } from "../../context";
 import { CriptoBalance } from "../../types";
 import { addBalance, formatCurrency, substractionBalance, updateHolding } from "../../utils";
@@ -15,7 +15,7 @@ type Props = {
 
 const Confirmation:FC<Props>= ({ navigation }) => {
     const [confirm, setConfirm] = useState(false)
-    const { fromCoin, amount, conversion, toCoin, setHolding, holding } = useBalanceContext()
+    const { fromCoin, amount, conversion, toCoin, setHolding, holding, setAmount, setFromCoin, setToCoin, setConversion } = useBalanceContext()
 
     const swap = (): void => {
         setConfirm(true)
@@ -28,6 +28,10 @@ const Confirmation:FC<Props>= ({ navigation }) => {
             const updatedBalance = addBalance(conversion, toCoin.balance)
 
             setHolding(updateHolding(holding, fromCoin, remainingBalance, toCoin, updatedBalance))
+            setAmount('0')
+            setFromCoin(DEFAULT_COIN_VALUES)
+            setToCoin(DEFAULT_COIN_VALUES)
+            setConversion(0)
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [confirm])

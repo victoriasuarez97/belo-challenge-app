@@ -7,6 +7,16 @@ export const VIEWS = {
     RESULT: 'Result'
 }
 
+export const DEFAULT_COIN_VALUES = {
+    id: '',
+    image: '../../assets/bitcoin.png',
+    name: '',
+    ticker: '',
+    balance: 0,
+    currency: '',
+    ars: 0
+}
+
 export const HOLDINGS = [
     {
         id: COINS.BITCOIN,

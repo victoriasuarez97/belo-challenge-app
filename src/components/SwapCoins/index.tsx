@@ -32,7 +32,7 @@ const SwapCoins: FC<Props> = ({ navigation }) => {
     const { coinInfo, isError, isLoading } = useCriptoPricesQuery({ id: fromCoin.id, currency: toCoin.currency })
 
     useEffect(() => {
-        if (!isLoading && selectedIndex && coinInfo  && amount) {
+        if (!isLoading && selectedIndex && coinInfo && amount) {
             const coinValue = coinInfo[fromCoin.id][toCoin.ticker.toLowerCase()]
             const estimatedAmount = getConversion(amount, coinValue)
             setConversion(parseFloat(estimatedAmount))
@@ -94,7 +94,7 @@ const SwapCoins: FC<Props> = ({ navigation }) => {
             </Card>
             <Button
                 disabled={hasError || amount === '0' || amount === ''}
-                onPress={() => navigation.navigate(VIEWS.CONFIRMATION)}>
+                onPress={() => { navigation.navigate(VIEWS.CONFIRMATION); setSelectedIndex(undefined) }}>
                 SWAP
             </Button>
         </View>

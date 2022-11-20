@@ -9,7 +9,7 @@ export const VIEWS = {
 
 export const DEFAULT_COIN_VALUES = {
     id: '',
-    image: '../../assets/bitcoin.png',
+    image: require('../assets/bitcoin.png'),
     name: '',
     ticker: '',
     balance: 0,
@@ -20,7 +20,7 @@ export const DEFAULT_COIN_VALUES = {
 export const HOLDINGS = [
     {
         id: COINS.BITCOIN,
-        image: '../assets/bitcoin.png',
+        image: require('../assets/bitcoin.png'),
         name: 'Bitcoin',
         ticker: 'BTC',
         balance: 0.00046941,
@@ -29,7 +29,7 @@ export const HOLDINGS = [
     },
     {
         id: COINS.BINANCE,
-        image: '../assets/binance.png',
+        image: require('../assets/binance.png'),
         name: 'Binance Coin',
         ticker: 'BNB',
         balance: 0.03089592,
@@ -38,7 +38,7 @@ export const HOLDINGS = [
     },
     {
         id: COINS.POLKADOT,
-        image: '../assets/polkadot.png',
+        image: require('../assets/polkadot.png'),
         name: 'Polkadot',
         ticker: 'DOT',
         balance: 4.87638999,
@@ -47,7 +47,7 @@ export const HOLDINGS = [
     },
     {
         id: COINS.ETHEREUM,
-        image: '../assets/ethereum.png',
+        image: require('../assets/ethereum.png'),
         name: 'Ethereum',
         ticker: 'ETH',
         balance: 0.09168927,

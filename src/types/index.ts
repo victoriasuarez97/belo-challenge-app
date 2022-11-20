@@ -1,3 +1,4 @@
+import { ImageSourcePropType } from "react-native"
 import { COINS } from "../constants/coins"
 import { CURRENCIES } from "../constants/currency"
 
@@ -17,7 +18,7 @@ export type Dollar = {
 
 export type CriptoBalance = {
     id: string
-    image: string
+    image: ImageSourcePropType
     name: string
     ticker: string
     balance: number

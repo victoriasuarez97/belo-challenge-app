@@ -6,8 +6,10 @@ export const BASE_URL = {
 export const TIMEOUT = 1000
 
 export const QUERY_CLIENT_DEFAULT_OPTIONS = {
-    queries: {
-        retry: false,
-        refetchOnWindowFocus: false
+    defaultOptions: {
+        queries: {
+            retry: false,
+            refetchOnWindowFocus: false
+        }
     }
 }

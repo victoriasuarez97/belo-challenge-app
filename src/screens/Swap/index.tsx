@@ -1,13 +1,12 @@
-import { NativeStackScreenProps } from "@react-navigation/native-stack"
+import { useNavigation } from "@react-navigation/native"
+import { NativeStackNavigationProp } from "@react-navigation/native-stack"
 import React, { FC } from "react"
 import { Container, SwapCoins } from "../../components"
 import { RootStackParamList } from "../../types"
 
-type Props = {
-    navigation: NativeStackScreenProps<RootStackParamList, 'Swap'>['navigation']
-}
+const Swap: FC = () => {
+    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>()
 
-const Swap: FC<Props> = ({ navigation }) => {
     return (
         <Container goBack navigation={navigation}>
             <SwapCoins navigation={navigation}/>

@@ -1,25 +1,24 @@
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { Button, Divider } from "@ui-kitten/components";
 import React, { FC, useEffect, useState } from "react";
 import { Text, View } from "react-native";
 import { Card, Container } from "../../components";
-import { DEFAULT_COIN_VALUES, VIEWS } from "../../constants/common";
+import { DEFAULT_COIN_VALUES } from "../../constants/common";
 import { useBalanceContext } from "../../context";
-import { CriptoBalance } from "../../types";
+import { RootStackParamList } from "../../types";
 import { addBalance, formatCurrency, substractionBalance, updateHolding } from "../../utils";
 import { tw } from "../../utils/tailwind";
 
-type Props = {
-    navigation
-    coin: CriptoBalance
-}
-
-const Confirmation:FC<Props>= ({ navigation }) => {
+const Confirmation:FC= () => {
+    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>()
+    
     const [confirm, setConfirm] = useState(false)
     const { fromCoin, amount, conversion, toCoin, setHolding, holding, setAmount, setFromCoin, setToCoin, setConversion } = useBalanceContext()
 
     const swap = (): void => {
         setConfirm(true)
-        navigation.navigate(VIEWS.RESULT)
+        navigation.navigate('Result')
     }
 
     useEffect(() => {

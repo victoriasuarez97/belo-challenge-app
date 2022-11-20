@@ -1,20 +1,20 @@
+import { useNavigation } from "@react-navigation/native"
+import { NativeStackNavigationProp } from "@react-navigation/native-stack"
 import { Button, IndexPath, Input, Select, SelectItem, Spinner, useTheme } from "@ui-kitten/components"
 import React, { FC, useEffect, useState } from "react"
 import { Text, View } from "react-native"
-import { VIEWS } from "../../constants/common"
 import { useBalanceContext } from "../../context"
 import { useCriptoPricesQuery } from "../../hooks"
+import { RootStackParamList } from "../../types"
 import { formatCurrency, getConversion, removeSelectedCoinFromHolding } from "../../utils"
 import { tw } from "../../utils/tailwind"
 import Card from "../Card"
 import Error from "../Error"
 import useAmountValidation from "./hooks"
 
-type Props = {
-    navigation
-}
+const SwapCoins: FC = () => {
+    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>()
 
-const SwapCoins: FC<Props> = ({ navigation }) => {
     const theme = useTheme()
 
     const { holding, fromCoin, conversion, setConversion, amount, setAmount, setToCoin, toCoin } = useBalanceContext()
@@ -94,7 +94,7 @@ const SwapCoins: FC<Props> = ({ navigation }) => {
             </Card>
             <Button
                 disabled={hasError || amount === '0' || amount === ''}
-                onPress={() => { navigation.navigate(VIEWS.CONFIRMATION); setSelectedIndex(undefined) }}>
+                onPress={() => { navigation.navigate('Confirmation'); setSelectedIndex(undefined) }}>
                 SWAP
             </Button>
         </View>

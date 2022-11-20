@@ -10,9 +10,3 @@ export const CURRENCIES = {
     USD: 'USD',
     ...CRIPTO_CURRENCIES
 }
-
-export const CURRENCIES_SYMBOL = {
-    ARS: '$',
-    USD: 'US$'
-}
-

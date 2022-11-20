@@ -13,7 +13,7 @@ export type CoinInfo = {
 }
 
 export type Dollar = {
-    blue: number,
+    blue: number
 }
 
 export type CriptoBalance = {

@@ -1,9 +1,13 @@
 import React, { FC } from "react";
-import { Text, View } from "react-native";
+import { Text } from "react-native";
 import { tw } from "../../utils/tailwind";
+import Container from "../Container";
 
 const Error: FC = () => (
-    <View><Text style={tw`text-white`}>Ups, algo salió mal :(</Text></View>
+    <Container>
+        <Text style={tw`text-white text-center`}>Oops! Something went wrong 😖</Text>
+        <Text style={tw`text-white text-center`}>Please, try again later</Text>
+    </Container>
 )
 
 export default Error

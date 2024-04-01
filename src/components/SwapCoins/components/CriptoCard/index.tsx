@@ -1,17 +1,9 @@
-import React, { FC } from "react"
+import React from "react"
 import { ActivityIndicator, Text, View } from "react-native"
-import { UseBaseQueryResult } from "react-query"
-import { CoinInfo, CriptoBalance } from "../../../../types"
 import { tw } from "../../../../utils/tailwind"
+import { CriptoCardType } from "./types"
 
-type Props = {
-    coin: CriptoBalance
-    selectedCoin: CriptoBalance
-    coinInfo: CoinInfo
-    isLoading: UseBaseQueryResult['isLoading']
-}
-
-const CriptoCard: FC<Props> = ({ coin, selectedCoin, coinInfo, isLoading }) => {
+const CriptoCard: CriptoCardType = ({ coin, selectedCoin, coinInfo, isLoading }) => {
     if (isLoading) return <ActivityIndicator />
 
     return  (

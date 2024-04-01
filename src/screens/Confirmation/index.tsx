@@ -1,8 +1,8 @@
+import React, { FC, useEffect, useState } from "react";
+import { Text, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { Button, Divider } from "@ui-kitten/components";
-import React, { FC, useEffect, useState } from "react";
-import { Text, View } from "react-native";
 import { Card, Container } from "../../components";
 import { DEFAULT_COIN_VALUES } from "../../constants/common";
 import { useBalanceContext } from "../../context";
@@ -10,7 +10,7 @@ import { RootStackParamList } from "../../types";
 import { addBalance, formatCurrency, substractionBalance, updateHolding } from "../../utils";
 import { tw } from "../../utils/tailwind";
 
-const Confirmation:FC= () => {
+const Confirmation:FC = () => {
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>()
     
     const [confirm, setConfirm] = useState(false)

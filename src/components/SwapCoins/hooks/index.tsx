@@ -1,14 +1,4 @@
-type Params = {
-    max: number
-    amount: string
-}
-
-type Return = {
-    hasError: boolean
-    errorMessage: string
-}
-
-type UseAmountValidation = (params: Params) => Return
+import { UseAmountValidation } from "../types"
 
 const useAmountValidation: UseAmountValidation = ({ amount, max }) => {
     if (parseFloat(amount) > max) return {

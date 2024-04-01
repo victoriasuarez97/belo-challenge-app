@@ -1,12 +1,10 @@
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import React, { FC } from "react";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { Container, Header, HoldingCards } from "../../components";
 import { useCriptoInARSQuery } from "../../hooks";
 import { RootStackParamList } from "../../types";
 
-type Props = NativeStackScreenProps<RootStackParamList, 'Home'>
-
-const Home: FC<Props> = () => {
+const Home: FC<NativeStackScreenProps<RootStackParamList, 'Home'>> = () => {
      const { isLoading: isCriptoInARSLoading, isError } = useCriptoInARSQuery()
 
     return (

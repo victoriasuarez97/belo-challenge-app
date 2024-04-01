@@ -1,6 +1,6 @@
+import React, { FC } from "react"
 import { useNavigation } from "@react-navigation/native"
 import { NativeStackNavigationProp } from "@react-navigation/native-stack"
-import React, { FC } from "react"
 import { Container, SwapCoins } from "../../components"
 import { RootStackParamList } from "../../types"
 
@@ -9,7 +9,7 @@ const Swap: FC = () => {
 
     return (
         <Container goBack navigation={navigation}>
-            <SwapCoins navigation={navigation}/>
+            <SwapCoins />
         </Container>
     )
 }

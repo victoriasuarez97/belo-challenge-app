@@ -1,18 +1,14 @@
-import { Avatar, Button, Icon } from '@ui-kitten/components'
-import React, { FC } from "react"
+import React from "react"
 import { Text, View } from "react-native"
-import { UseBaseQueryResult } from 'react-query'
+import { Avatar, Button, Icon } from '@ui-kitten/components'
 import { CURRENCIES } from '../../constants/currency'
 import { formatCurrency } from '../../utils'
 import { tw } from "../../utils/tailwind"
 import Card from '../Card'
 import { useDollarBlueQuery } from './hooks/useDollarBlueQuery'
+import { HeaderType } from './types'
 
-type Props = {
-	isLoading: UseBaseQueryResult['isLoading']
-}
-
-const Header: FC<Props> = ({ isLoading }) => {
+const Header: HeaderType = ({ isLoading }) => {
 	const { balance, isLoading: isDollarBlueLoading, isError } = useDollarBlueQuery({ ARSPriceIsLoading: isLoading })
 
 	const loadingComponent = isDollarBlueLoading ? '...' : null

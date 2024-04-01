@@ -1,22 +1,17 @@
+import React from "react";
+import { Image, Pressable, Text, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { Spinner } from "@ui-kitten/components";
-import React, { FC } from "react";
-import { Image, Pressable, Text, View } from "react-native";
-import { UseBaseQueryResult } from "react-query";
 import { CURRENCIES } from "../../constants/currency";
 import { useBalanceContext } from "../../context";
 import { CriptoBalance, RootStackParamList } from "../../types";
 import { formatCurrency } from "../../utils";
 import { tw } from "../../utils/tailwind";
 import Error from "../Error";
+import { HoldingCardsType } from "./types";
 
-type Props = {
-    isLoading: UseBaseQueryResult['isLoading']
-    isError: UseBaseQueryResult['isError']
-}
-
-const HoldingCards: FC<Props> = ({ isLoading, isError }) => {
+const HoldingCards: HoldingCardsType = ({ isLoading, isError }) => {
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>()
 
     const { holding, setFromCoin } = useBalanceContext()

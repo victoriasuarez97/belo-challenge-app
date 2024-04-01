@@ -1,17 +1,10 @@
-import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import React from "react";
 import { Icon, TopNavigationAction } from "@ui-kitten/components";
-import React, { FC, ReactNode } from "react";
 import { SafeAreaView, ScrollView, StatusBar, View } from "react-native";
-import { RootStackParamList } from "../../types";
 import { tw } from "../../utils/tailwind";
+import { ContainerType } from "./types";
 
-type Props = {
-    children: ReactNode
-    goBack?: boolean
-    navigation?: NativeStackNavigationProp<RootStackParamList>
-}
-
-const Container: FC<Props> = ({ children, navigation, goBack }) => (
+const Container: ContainerType = ({ children, navigation, goBack }) => (
     <SafeAreaView style={tw`bg-slate-900 p-3 h-full`}>
         <StatusBar backgroundColor="black"/>
         <View style={tw`pt-3`}>
